@@ -46,11 +46,14 @@ export default function ProfileHeader({
         </button>
       </div>
       <div className="flex h-60 items-center justify-center border-b border-slate-400">
-        <div className="flex w-96 gap-2">
-          <img
-            src={profileDataContext.profileData.profile_picture}
-            className="h-20 w-20 shrink-0 rounded-md object-cover text-center"
-          />
+        <div className={`flex w-96 gap-2`}>
+          <div className="h-20 w-20 shrink-0 rounded-md bg-gray-200">
+            <img
+              src={profileDataContext.profileData.profile_picture}
+              className={`h-20 w-20 shrink-0 rounded-md object-cover text-center ${profileDataContext.profileData.profile_picture == null ? "hidden" : ""}`}
+            />
+          </div>
+
           <div className="flex w-full flex-col justify-center">
             <h1 className="text-2xl">{username}</h1>
             <h1>{bio}</h1>

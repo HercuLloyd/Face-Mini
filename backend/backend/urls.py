@@ -22,6 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
-    path('event/', include('event.urls'))
+    path('event/', include('event.urls')),
+    path("", include("myapp.urls")),
+    path("", include("django_nextjs.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -68,7 +68,7 @@ export default function Post({
         <div className="flex w-full items-center gap-2">
           <img
             src={hostProfileData.profile_picture}
-            className="h-12 w-12 shrink-0 rounded-sm object-cover"
+            className="h-12 w-12 shrink-0 rounded-sm bg-slate-400 object-cover"
             onClick={() => router.push(`/profile/${host}`)}
           />
           <div
