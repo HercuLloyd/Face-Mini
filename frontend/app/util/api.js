@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 import { ACCESS_TOKEN } from "./constants";
 
 //const baseURL = "http://127.0.0.1:8000";
-const baseURL = "http://54.197.205.217:8000";
+const baseURL = "http://54.197.205.217";
 
 const api = axios.create({
   baseURL: baseURL,
