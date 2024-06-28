@@ -3,10 +3,10 @@ import { jwtDecode } from "jwt-decode";
 import dayjs from "dayjs";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
-import { ACCESS_TOKEN } from "./constants";
+import { ACCESS_TOKEN, BASE_URL } from "./constants";
 
-//const baseURL = "http://127.0.0.1:8000";
-const baseURL = "http://54.197.205.217";
+const baseURL = BASE_URL;
+// const baseURL = "http://54.197.205.217";
 
 const api = axios.create({
   baseURL: baseURL,

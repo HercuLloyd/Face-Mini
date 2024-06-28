@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import api from "@/app/util/api";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { ACCESS_TOKEN } from "@/app/util/constants";
+import { ACCESS_TOKEN, BASE_URL } from "@/app/util/constants";
 import { EventDataContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
@@ -32,8 +32,8 @@ export default function UpdateEventPostForm({
 
   const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-  const updateEventURL = `http://127.0.0.1:8000/event/event-post/update/${eventPostId}/`;
-  const updateMemoriesURL = `http://127.0.0.1:8000/event/memories-post/update/${eventPostId}/`;
+  const updateEventURL = `${BASE_URL}/event/event-post/update/${eventPostId}/`;
+  const updateMemoriesURL = `${BASE_URL}/event/memories-post/update/${eventPostId}/`;
 
   return (
     <div>

@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/app/util/constants";
+import { ACCESS_TOKEN, BASE_URL, REFRESH_TOKEN } from "@/app/util/constants";
 import api from "@/app/util/api";
 import { useRouter } from "next/navigation";
 import BasicFieldHeader from "@/app/util/components/forms/basicfieldheader";
@@ -28,7 +28,7 @@ export default function UpdateEventForm({ onClose, eventId }) {
     }
   };
   const config = { headers: { "Content-Type": "multipart/form-data" } };
-  const URL = `http://127.0.0.1:8000/event/post/update/${eventId}/`;
+  const URL = `${BASE_URL}/event/post/update/${eventId}/`;
 
   const getEvent = () => {
     api

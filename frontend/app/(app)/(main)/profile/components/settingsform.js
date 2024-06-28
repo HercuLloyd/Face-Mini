@@ -1,11 +1,8 @@
 "use client";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useContext, useEffect, useState } from "react";
-import api from "@/app/util/api";
-import { jwtDecode } from "jwt-decode";
-import { ACCESS_TOKEN } from "@/app/util/constants";
+import { BASE_URL } from "@/app/util/constants";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { ProfilePageContext } from "../[id]/page";
 
 export default function SettingsForm({ onClose }) {
@@ -21,7 +18,7 @@ export default function SettingsForm({ onClose }) {
   };
   console.log(postImage);
   const config = { headers: { "Content-Type": "multipart/form-data" } };
-  const axiosURL = `http://127.0.0.1:8000/user/profile/update/${profileDataContext.profileData.id}/`;
+  const axiosURL = `${BASE_URL}/user/profile/update/${profileDataContext.profileData.id}/`;
   let formData = new FormData();
 
   return (
@@ -34,7 +31,6 @@ export default function SettingsForm({ onClose }) {
         }}
         enableReinitialize={true}
         onSubmit={async (values, { setSubmitting }) => {
-          // setSubmitting(false);
           try {
             console.log(postImage);
             formData.append("display_name", values.display_name);

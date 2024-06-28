@@ -5,6 +5,7 @@ import axios from "axios";
 
 import { EventDataContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
+import { BASE_URL } from "@/app/util/constants";
 
 export default function MemoriesForm({ eventId }) {
   const eventData = useContext(EventDataContext);
@@ -21,7 +22,7 @@ export default function MemoriesForm({ eventId }) {
   };
 
   const config = { headers: { "Content-Type": "multipart/form-data" } };
-  const axiosURL = "http://127.0.0.1:8000/event/memories-post/";
+  const axiosURL = `${BASE_URL}/event/memories-post/`;
 
   return (
     <div>

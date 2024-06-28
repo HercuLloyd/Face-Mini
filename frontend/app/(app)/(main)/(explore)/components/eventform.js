@@ -6,6 +6,7 @@ import BasicFieldHeader from "@/app/util/components/forms/basicfieldheader";
 import ErrorStyling from "@/app/util/components/forms/errorstyling";
 import { ExploreDataContext } from "../page";
 import { ProfileContext } from "@/app/context/AuthContext";
+import { BASE_URL } from "@/app/util/constants";
 
 export default function EventForm({ onClose }) {
   const exploreData = useContext(ExploreDataContext);
@@ -20,7 +21,7 @@ export default function EventForm({ onClose }) {
   };
 
   const config = { headers: { "Content-Type": "multipart/form-data" } };
-  const URL = "http://127.0.0.1:8000/event/post/";
+  const URL = `${BASE_URL}/event/post/`;
 
   const EventPostSchema = Yup.object().shape({
     event_title: Yup.string()
