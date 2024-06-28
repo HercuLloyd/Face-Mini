@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import BasicFieldHeader from "@/app/util/components/forms/basicfieldheader";
 import ErrorStyling from "@/app/util/components/forms/errorstyling";
 import api from "@/app/util/api";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/app/util/constants";
+import { ACCESS_TOKEN, BASE_URL, REFRESH_TOKEN } from "@/app/util/constants";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
@@ -36,19 +36,18 @@ export default function SignUpForm() {
   };
   console.log(profileData);
   const config = { headers: { "Content-Type": "multipart/form-data" } };
-  const URL = `http://127.0.0.1:8000/user/profile/update/${profile.id}/`;
+  const URL = `${BASE_URL}/user/profile/update/${profile.id}/`;
   let formData = new FormData();
   formData.append("display_name", profileData.display_name);
   formData.append("profile_picture", postImage);
 
   const registerUser = async () => {
-    await api.post("/user/register/", {
-      username: profileData.username,
-      password: profileData.password,
-    })
-    .then(
-      router.push('/sign-in')
-    )
+    await api
+      .post("/user/register/", {
+        username: profileData.username,
+        password: profileData.password,
+      })
+      .then(router.push("/sign-in"));
   };
 
   // const getToken = async () => {
@@ -96,13 +95,13 @@ export default function SignUpForm() {
       .required("Required"),
     repeatPassword: Yup.string().oneOf(
       [Yup.ref("password"), null],
-      "Passwords must match"
+      "Passwords must match",
     ),
   });
 
   return (
-    <div className="border-4 border-slate-300 p-4 rounded-md">
-      <h1 className="text-3xl font-medium mb-4">Sign Up</h1>
+    <div className="rounded-md border-4 border-slate-300 p-4">
+      <h1 className="mb-4 text-3xl font-medium">Sign Up</h1>
       <Formik
         initialValues={{
           username: profileData.username,
@@ -132,8 +131,7 @@ export default function SignUpForm() {
         <Form className="flex flex-col gap-2">
           <label
             htmlFor="profile_picture"
-            className={`flex justify-center items-center text-4xl h-20 w-20 bg-gray-200 rounded-md
-            `}
+            className={`flex h-20 w-20 items-center justify-center rounded-md bg-gray-200 text-4xl`}
           >
             <h1 className={``}>+</h1>
             {/* <img
@@ -161,7 +159,7 @@ export default function SignUpForm() {
             name="username"
             autoComplete="off"
             type="text"
-            className="h-10 w-80 px-2 rounded-sm border-2 border-slate-300 outline-none"
+            className="h-10 w-80 rounded-sm border-2 border-slate-300 px-2 outline-none"
             onChange={handleChange}
           />
 
@@ -191,7 +189,7 @@ export default function SignUpForm() {
             name="password"
             autoComplete="off"
             type="password"
-            className="h-10 w-80 px-2 rounded-sm border-2 border-slate-300 outline-none"
+            className="h-10 w-80 rounded-sm border-2 border-slate-300 px-2 outline-none"
             onChange={handleChange}
           />
 
@@ -206,12 +204,12 @@ export default function SignUpForm() {
             name="repeat_password"
             autoComplete="off"
             type="password"
-            className="h-10 w-80 px-2 rounded-sm border-2 border-slate-300 outline-none"
+            className="h-10 w-80 rounded-sm border-2 border-slate-300 px-2 outline-none"
             onChange={handleChange}
           />
 
           <h1
-            className="w-fit hover:text-blue-600 cursor-pointer"
+            className="w-fit cursor-pointer hover:text-blue-600"
             onClick={() => router.push("/sign-in")}
           >
             Sign In
@@ -219,7 +217,7 @@ export default function SignUpForm() {
 
           <button
             type="submit"
-            className="h-10 w-80 bg-green-600 text-white text-center rounded-md p-2"
+            className="h-10 w-80 rounded-md bg-green-600 p-2 text-center text-white"
           >
             Sign Up
           </button>
