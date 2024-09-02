@@ -64,7 +64,7 @@ export default function Post({
 
   return (
     <div className="flex w-96 flex-col gap-2 pt-4">
-      <div className="flex items-center justify-between bg-gray-100 p-2">
+      <div className="flex items-center justify-between bg-[#EEFDEE] p-2">
         <div className="flex w-full items-center gap-2">
           <img
             src={hostProfileData.profile_picture}
@@ -75,7 +75,7 @@ export default function Post({
             className="flex w-full cursor-pointer flex-col text-start text-sm font-medium leading-tight"
             onClick={() => router.push(`/event/${id}/`)}
           >
-            <h1>{username}</h1>
+            <h1 className="font-semibold">{username}</h1>
             <h1>{location}</h1>
             <h1>{time}</h1>
           </div>

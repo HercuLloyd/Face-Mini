@@ -64,6 +64,7 @@ export default function Event({ params }) {
           currentTab={filter}
           setTab={(tab) => setFilter(tab)}
           createButton={() => setMemoriesModal(true)}
+          eventId={params.id}
         />
         {showList()}
         <Modal open={memoriesModal} onClose={() => setMemoriesModal(false)}>

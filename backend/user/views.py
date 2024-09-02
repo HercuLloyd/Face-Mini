@@ -53,3 +53,5 @@ class GetProfileByUserIDView(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     lookup_field = 'user'
+
+# Add event to profile page
