@@ -16,7 +16,6 @@ export default function SettingsForm({ onClose }) {
       setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
   };
-  console.log(postImage);
   const config = { headers: { "Content-Type": "multipart/form-data" } };
   const axiosURL = `${BASE_URL}/user/profile/update/${profileDataContext.profileData.id}/`;
   let formData = new FormData();

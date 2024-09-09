@@ -10,29 +10,32 @@ export const ProfilePageContext = createContext(null);
 
 export default function Profile({ params }) {
   const [settingsModal, setSettingsModal] = useState(false);
-  const [profileData, setProfileData] = useState({});
+  const [profileData, setProfileData] = useState({
+    username: "",
+    user_memories: [],
+  });
   //get profile id
 
   useEffect(() => {
     getProfile();
   }, []);
-  
+
   const getProfile = async () => {
-    try{
+    try {
       await api
-      .get(`/user/profile/${params.id}/`)
-      .then((res) => res.data)
-      .then((data) => {
-        setProfileData(data);
-      });
+        .get(`/user/profile/${params.id}/`)
+        .then((res) => res.data)
+        .then((data) => {
+          setProfileData(data);
+        });
+    } catch (error) {
+      alert(error);
     }
-    catch(error){
-      alert(error)
-    }
-    
   };
   return (
-    <ProfilePageContext.Provider value={{ profileData, setProfileData, getProfile }}>
+    <ProfilePageContext.Provider
+      value={{ profileData, setProfileData, getProfile }}
+    >
       <div className="w-full">
         <ProfileHeader
           settingsButton={() => setSettingsModal(true)}
@@ -41,7 +44,7 @@ export default function Profile({ params }) {
           profilePic={profileData.profile_picture}
           pageId={params.id}
         />
-        {/* <ProfileList/> */}
+        <ProfileList />
         <Modal open={settingsModal} onClose={() => setSettingsModal(false)}>
           <SettingsForm onClose={() => setSettingsModal(false)} />
         </Modal>

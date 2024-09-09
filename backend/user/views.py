@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from user.models import Profile
+from event.models import Event
 from django.contrib.auth.models import User
 from user.serializer import CreateUserSerializer, ProfileSerializer, UserSeralizer
+from event.serializers import EventSerializer
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
@@ -55,3 +59,20 @@ class GetProfileByUserIDView(generics.RetrieveAPIView):
     lookup_field = 'user'
 
 # Add event to profile page
+# Get user
+# Get event id
+# Add event id to
+@csrf_exempt
+def editMemories(request, pk1, pk2):
+    profile = Profile.objects.get(pk=pk1) 
+    if request.method == 'PUT':
+        profile.user_memories.add(Event.objects.get(id=pk2))
+        return HttpResponse('Success')
+    
+@csrf_exempt
+def memoriesList(request, pk1):
+    profile = Profile.objects.get(pk=pk1)
+    events = profile.user_memories.all()
+    if request.method == 'GET':
+        serializer = EventSerializer(events, many = True)
+        return JsonResponse(serializer.data, safe=False)

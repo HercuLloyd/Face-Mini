@@ -34,9 +34,7 @@ export default function CreateAndSaveButton({
   };
 
   const saveEvent = async () => {
-    const newData = yourProfileData.user_memories;
-    formData.append("user_memories", [172, 170]);
-    await axios.put(axiosURL, formData, config);
+    await api.put(`/user/edit-memories/${yourProfileData.id}/${eventId}/`);
     console.log("event saved");
   };
 

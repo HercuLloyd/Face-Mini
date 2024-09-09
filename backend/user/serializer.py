@@ -44,4 +44,5 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['id', 'display_name', 'bio', 'profile_picture', 'user_memories']
 
+
 # Update memories saved in profile

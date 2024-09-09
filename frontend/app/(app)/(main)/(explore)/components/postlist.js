@@ -17,22 +17,25 @@ export default function PostList() {
     return f.format(time);
   }
 
-  const list = exploreData.eventList.map((eventPost) => (
-    <Post
-      key={eventPost.id}
-      id={eventPost.id}
-      event_title={eventPost.event_title}
-      username={eventPost.display_name}
-      host={eventPost.host}
-      location={eventPost.location}
-      time={date(eventPost.time)}
-      text={eventPost.event_description}
-      image={eventPost.image}
-    />
-  ));
+  const exploreList = () => {
+    const list = exploreData.eventList.map((eventPost) => (
+      <Post
+        key={eventPost.id}
+        id={eventPost.id}
+        event_title={eventPost.event_title}
+        username={eventPost.display_name}
+        host={eventPost.host}
+        location={eventPost.location}
+        time={date(eventPost.time)}
+        text={eventPost.event_description}
+        image={eventPost.image}
+      />
+    ));
+    return list.reverse();
+  };
   return (
     <div>
-      <PostListContainer>{list}</PostListContainer>
+      <PostListContainer>{exploreList()}</PostListContainer>
     </div>
   );
 }

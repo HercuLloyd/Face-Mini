@@ -9,5 +9,7 @@ urlpatterns = [
     path('profile/<pk>/', views.ProfileView.as_view()),
     path('retrieve/<pk>/', views.UserView.as_view()),
     path('profile/update/<pk>/', views.ProfileUpdateView.as_view()),
-    path('get-profile/<user>/', views.GetProfileByUserIDView.as_view())
+    path('get-profile/<user>/', views.GetProfileByUserIDView.as_view()),
+    path('edit-memories/<pk1>/<pk2>/', views.editMemories, name='edit-memories'),
+    path('profile-memories-list/<pk1>/', views.memoriesList, name = 'profile-memories-list' )
 ]

@@ -34,7 +34,6 @@ export default function ProfileHeader({
       alert(error);
     }
   };
-  console.log(profileData);
   return (
     <div>
       <div className="flex h-20 items-center justify-end px-4">
