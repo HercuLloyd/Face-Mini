@@ -111,7 +111,7 @@ export default function Post({
           image ? "" : "hidden"
         }`}
       >
-        <img className="h-full w-full object-cover" src={image} />
+        <img className="h-full w-full rounded-sm object-cover" src={image} />
       </div>
     </div>
   );

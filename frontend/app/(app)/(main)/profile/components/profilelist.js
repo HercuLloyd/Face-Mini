@@ -39,12 +39,14 @@ export default function ProfileList() {
     return memoriesData.map((memory, key) => (
       <ProfilePost
         key={key}
+        eventId={memory.id}
         profilePic={profileContext.profileData.profile_picture}
         username={memory.display_name}
         location={memory.location}
         time={date(memory.time)}
         text={memory.event_title}
         image={memory.image}
+        update={(data) => setMemoriesData(data)}
       />
     ));
   };

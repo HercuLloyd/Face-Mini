@@ -2,7 +2,7 @@ from django.shortcuts import render
 from user.models import Profile
 from event.models import Event
 from django.contrib.auth.models import User
-from user.serializer import CreateUserSerializer, ProfileSerializer, UserSeralizer
+from user.serializer import CreateUserSerializer, ProfileSerializer, ProfileFormSerializer, UserSeralizer
 from event.serializers import EventSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -44,7 +44,7 @@ class ProfileUpdateView(APIView):
 
     def put(self, request, pk, format= None):
         profile = Profile.objects.get(pk=pk)
-        serializer = ProfileSerializer(profile, data=request.data)
+        serializer = ProfileFormSerializer(profile, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status= status.HTTP_200_OK)
@@ -67,7 +67,10 @@ def editMemories(request, pk1, pk2):
     profile = Profile.objects.get(pk=pk1) 
     if request.method == 'PUT':
         profile.user_memories.add(Event.objects.get(id=pk2))
-        return HttpResponse('Success')
+        return HttpResponse('Memory Sucessfully Added')
+    if request.method == 'DELETE':
+        profile.user_memories.remove(Event.objects.get(id=pk2))
+        return HttpResponse('Memory Sucessfully Deleted')
     
 @csrf_exempt
 def memoriesList(request, pk1):

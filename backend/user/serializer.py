@@ -39,10 +39,15 @@ class UserSeralizer(serializers.ModelSerializer):
         
 
 #Find a Profile
+class ProfileFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['id', 'display_name', 'bio', 'profile_picture']
+
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['id', 'display_name', 'bio', 'profile_picture', 'user_memories']
+        fields = ['id', 'display_name', 'bio', 'profile_picture','user_memories']
 
 
 # Update memories saved in profile
