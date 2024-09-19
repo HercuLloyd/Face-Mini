@@ -52,3 +52,32 @@ class EventMemories(models.Model):
     def __str__(self):
         return self.message + ' - ' + self.user.display_name
     
+class ProfileMemories(models.Model):
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="user_profile_memories", null=True, blank=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='profile_events')
+    @property
+    def host_name(self):
+        return self.event.display_name
+    @property
+    def location(self):
+        return self.event.location
+    @property
+    def event_title(self):
+        return self.event.event_title
+    @property
+    def image(self):
+        return self.event.image
+    @property 
+    def created_at(self):
+        return self.event.time
+    @property
+    def profile_picture(self):
+        return self.user.profile_picture
+    
+    
+
+class ProfileMemoriesComments(models.Model):
+    event = models.ForeignKey(ProfileMemories, on_delete=models.CASCADE, related_name='profile_event_comments')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="host_of_comment")
+    message = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)

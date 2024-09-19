@@ -2,7 +2,7 @@ from user.models import Profile
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
 
 #Create User
 #Find Profile
@@ -47,7 +47,7 @@ class ProfileFormSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['id', 'display_name', 'bio', 'profile_picture','user_memories']
+        fields = ['id', 'display_name', 'bio', 'profile_picture']
 
 
 # Update memories saved in profile

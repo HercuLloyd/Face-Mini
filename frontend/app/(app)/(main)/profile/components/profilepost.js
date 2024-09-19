@@ -14,7 +14,7 @@ export default function ProfilePost({
   time,
   text,
   image,
-  eventId,
+  memoryId,
   update,
 }) {
   // dropdown state
@@ -27,11 +27,9 @@ export default function ProfilePost({
   const profileData = useContext(ProfileContext);
 
   const deletePost = async () => {
-    await api.delete(
-      `/user/edit-memories/${profilePageData.profileData.id}/${eventId}/`,
-    );
+    await api.delete(`/user/profile-memories/delete/${memoryId}/`);
     await api
-      .get(`/user/profile-memories-list/${profilePageData.profileData.id}/`)
+      .get(`/user/profile-memories/list/${profilePageData.profileData.id}/`)
       .then((res) => res.data)
       .then((data) => {
         console.log(data);

@@ -27,7 +27,7 @@ export default function ProfileList() {
   const loadMems = async () => {
     if (profileId !== undefined)
       await api
-        .get(`/user/profile-memories-list/${profileContext.profileData.id}/`)
+        .get(`/user/profile-memories/list/${profileContext.profileData.id}/`)
         .then((res) => res.data)
         .then((data) => {
           console.log(data);
@@ -39,11 +39,11 @@ export default function ProfileList() {
     return memoriesData.map((memory, key) => (
       <ProfilePost
         key={key}
-        eventId={memory.id}
+        memoryId={memory.id}
         profilePic={profileContext.profileData.profile_picture}
-        username={memory.display_name}
+        username={memory.host_name}
         location={memory.location}
-        time={date(memory.time)}
+        time={date(memory.created_at)}
         text={memory.event_title}
         image={memory.image}
         update={(data) => setMemoriesData(data)}

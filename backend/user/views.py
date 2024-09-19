@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from user.models import Profile
-from event.models import Event
+from user.models import Profile 
+from event.models import Event, ProfileMemories
 from django.contrib.auth.models import User
 from user.serializer import CreateUserSerializer, ProfileSerializer, ProfileFormSerializer, UserSeralizer
-from event.serializers import EventSerializer
+from event.serializers import EventSerializer, ProfileMemoriesSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
@@ -58,24 +58,27 @@ class GetProfileByUserIDView(generics.RetrieveAPIView):
     serializer_class = ProfileSerializer
     lookup_field = 'user'
 
-# Add event to profile page
-# Get user
-# Get event id
-# Add event id to
+
 @csrf_exempt
-def editMemories(request, pk1, pk2):
+def addMemories(request, pk1, pk2):
     profile = Profile.objects.get(pk=pk1) 
-    if request.method == 'PUT':
-        profile.user_memories.add(Event.objects.get(id=pk2))
-        return HttpResponse('Memory Sucessfully Added')
-    if request.method == 'DELETE':
-        profile.user_memories.remove(Event.objects.get(id=pk2))
-        return HttpResponse('Memory Sucessfully Deleted')
-    
+    eventData = Event.objects.get(pk=pk2)
+    profileMem = ProfileMemories(user = profile, event = eventData)
+    profileMem.save()
+    return HttpResponse('okay good')
+
+#delete memories
 @csrf_exempt
+def deleteMemory(request, pk):
+    memory = ProfileMemories.objects.get(pk=pk)
+    memory.delete()
+    return HttpResponse('Profile Memory ' + pk + ' deleted')
+
 def memoriesList(request, pk1):
     profile = Profile.objects.get(pk=pk1)
-    events = profile.user_memories.all()
-    if request.method == 'GET':
-        serializer = EventSerializer(events, many = True)
-        return JsonResponse(serializer.data, safe=False)
+    memList = profile.user_profile_memories.all()
+    serializer = ProfileMemoriesSerializer(memList, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+# create a profile memories object with associated event
+# add that profile memory to the profile memories list in profile

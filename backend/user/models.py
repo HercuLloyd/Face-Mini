@@ -30,7 +30,7 @@ class Profile(models.Model):
     display_name = models.CharField(max_length=20, blank=True, null=True)
     bio = models.CharField(max_length=200, blank=True, null=True)
     profile_picture = models.ImageField(blank=True, null=True, upload_to=upload_to)
-    user_memories = models.ManyToManyField('event.Event', blank=True)
+    #user_memories = models.ManyToManyField('event.ProfileMemories', blank=True)
     verified = models.BooleanField(default=False)
 
     def __str__(self):

@@ -1,4 +1,5 @@
-from .models import Event, EventPost, EventMemories
+from .models import Event, EventPost, EventMemories, ProfileMemories
+from user.models import Profile
 from rest_framework import serializers
 
 class EventSerializer(serializers.ModelSerializer):
@@ -22,3 +23,12 @@ class MemoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventMemories
         fields = ['id', 'user', 'message', 'image', 'created_at', 'event', 'display_name']
+
+class ProfileMemoriesSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    event = serializers.PrimaryKeyRelatedField(read_only=True)
+    image = serializers.ImageField(required=False)
+    profile_picture = serializers.ImageField(required=False)
+    class Meta:
+        model = ProfileMemories
+        fields = ['id','user', 'event', 'host_name', 'location', 'event_title', 'image', 'created_at', 'profile_picture']

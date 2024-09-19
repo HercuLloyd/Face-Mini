@@ -6,11 +6,11 @@ import { BASE_URL } from "@/app/util/constants";
 
 export default function CreateAndSaveButton({
   createButton,
-  saveButton,
   eventId,
   currentTab,
 }) {
   const [eventData, setEventData] = useState([]);
+  const [saveButton, setSaveButton] = useState(false);
   const currentDate = new Date();
   const eventDate = new Date(eventData.time);
 
@@ -34,11 +34,10 @@ export default function CreateAndSaveButton({
   };
 
   const saveEvent = async () => {
-    await api.put(`/user/edit-memories/${yourProfileData.id}/${eventId}/`);
-    console.log("event saved");
+    await api.put(
+      `/user/profile-memories/add/${yourProfileData.id}/${eventId}/`,
+    );
   };
-
-  console.log(yourProfileData);
 
   //Get Profile Information
 
@@ -46,7 +45,30 @@ export default function CreateAndSaveButton({
   //if not show create button
   //if so show save button
 
+  const savedEventCheck = async () => {
+    //call for list of profile memories
+    //check if this event is already saved in memories
+    //if so savebutton = true
+    if (yourProfileData.id != undefined && saveButton == false) {
+      let list;
+      await api
+        .get(`/user/profile-memories/list/${yourProfileData.id}/`)
+        .then((res) => res.data)
+        .then((data) => {
+          list = data;
+        });
+      for (const item of list) {
+        if (item.event == eventId) {
+          setSaveButton(true);
+          break;
+        }
+      }
+      console.log(list);
+    }
+  };
+
   const createAndSaveButton = () => {
+    savedEventCheck();
     if (eventDate > currentDate)
       return (
         <button
@@ -60,10 +82,13 @@ export default function CreateAndSaveButton({
     return (
       <button
         className={`rounded-md bg-green-600 px-4 py-2 text-white disabled:bg-slate-400`}
-        onClick={() => saveEvent()}
-        disabled={currentTab == "chat"}
+        onClick={() => {
+          saveEvent();
+          setSaveButton(true);
+        }}
+        disabled={currentTab == "chat" || saveButton}
       >
-        Save
+        {saveButton ? "Saved" : "Save"}
       </button>
     );
   };

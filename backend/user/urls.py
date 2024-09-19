@@ -10,6 +10,8 @@ urlpatterns = [
     path('retrieve/<pk>/', views.UserView.as_view()),
     path('profile/update/<pk>/', views.ProfileUpdateView.as_view()),
     path('get-profile/<user>/', views.GetProfileByUserIDView.as_view()),
-    path('edit-memories/<pk1>/<pk2>/', views.editMemories, name='edit-memories'),
-    path('profile-memories-list/<pk1>/', views.memoriesList, name = 'profile-memories-list' )
+    
+    path('profile-memories/add/<pk1>/<pk2>/', views.addMemories, name='add-profile-memories'),
+    path('profile-memories/delete/<pk>/', views.deleteMemory, name='delete-profile-memories'),
+    path('profile-memories/list/<pk1>/', views.memoriesList, name = 'profile-memories-list' )
 ]
