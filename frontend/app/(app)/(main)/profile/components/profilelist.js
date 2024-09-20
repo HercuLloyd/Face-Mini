@@ -46,7 +46,7 @@ export default function ProfileList() {
         time={date(memory.created_at)}
         text={memory.event_title}
         image={memory.image}
-        update={(data) => setMemoriesData(data)}
+        updateList={(data) => setMemoriesData(data)}
       />
     ));
   };

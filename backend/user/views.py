@@ -3,7 +3,7 @@ from user.models import Profile
 from event.models import Event, ProfileMemories
 from django.contrib.auth.models import User
 from user.serializer import CreateUserSerializer, ProfileSerializer, ProfileFormSerializer, UserSeralizer
-from event.serializers import EventSerializer, ProfileMemoriesSerializer
+from event.serializers import EventSerializer, ProfileMemoriesSerializer, MemoriesSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
@@ -73,6 +73,12 @@ def deleteMemory(request, pk):
     memory = ProfileMemories.objects.get(pk=pk)
     memory.delete()
     return HttpResponse('Profile Memory ' + pk + ' deleted')
+
+def getMemories(request, pk):
+    profileMem = ProfileMemories.objects.get(pk=pk)
+    eventMems = profileMem.event.memories.all()
+    serializer = MemoriesSerializer(eventMems, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 def memoriesList(request, pk1):
     profile = Profile.objects.get(pk=pk1)

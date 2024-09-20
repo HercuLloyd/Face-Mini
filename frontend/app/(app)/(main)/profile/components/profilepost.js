@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import ProfilePostDropDown from "./profilepostdropdown";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DeleteProfileEventModal from "./deleteprofileeventmodal";
 import api from "@/app/util/api";
 import { ProfilePageContext } from "../[id]/page";
@@ -15,7 +15,7 @@ export default function ProfilePost({
   text,
   image,
   memoryId,
-  update,
+  updateList,
 }) {
   // dropdown state
   // button that changes dropdown state
@@ -23,8 +23,31 @@ export default function ProfilePost({
   const [dropDown, setDropDown] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const router = useRouter();
+  const [memoryImages, setMemoryImages] = useState([]);
+  const [imageCounter, setImageCounter] = useState(0);
   const profilePageData = useContext(ProfilePageContext);
   const profileData = useContext(ProfileContext);
+
+  //get a list of all memories in an event
+  //make a list of all images in those memories\
+
+  useEffect(() => {
+    getMemoryData();
+  }, []);
+
+  const getMemoryData = async () => {
+    await api
+      .get(`/user/profile-memories/get/${memoryId}/`)
+      .then((res) => res.data)
+      .then((data) => {
+        const imageList = data.map((memory) => memory.image);
+        imageList.unshift(image);
+        setMemoryImages(imageList.filter(Boolean));
+      });
+  };
+
+  //have post show an image in that list and the current index increase on click
+  //when at end of list loop back to the first element
 
   const deletePost = async () => {
     await api.delete(`/user/profile-memories/delete/${memoryId}/`);
@@ -32,8 +55,7 @@ export default function ProfilePost({
       .get(`/user/profile-memories/list/${profilePageData.profileData.id}/`)
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
-        update(data);
+        updateList(data);
       });
   };
 
@@ -76,12 +98,27 @@ export default function ProfilePost({
       </div>
 
       <h1 className="text-sm">{text}</h1>
-      <img
-        src={image}
-        className={`flex h-96 w-96 flex-col justify-center rounded-md bg-slate-400 object-cover text-center ${
-          image ? "" : "hidden"
-        }`}
-      />
+      <div className="relative">
+        <img
+          src={memoryImages[imageCounter]}
+          className={`flex h-96 w-96 flex-col justify-center rounded-md bg-slate-400 object-cover text-center ${
+            image ? "" : "hidden"
+          }`}
+        />
+        <button
+          className="absolute left-0 top-0 h-full w-1/4"
+          onClick={() => {
+            if (imageCounter > 0) setImageCounter(imageCounter - 1);
+          }}
+        ></button>
+        <button
+          className="absolute right-0 top-0 h-full w-1/4"
+          onClick={() => {
+            if (imageCounter < memoryImages.length - 1)
+              setImageCounter(imageCounter + 1);
+          }}
+        ></button>
+      </div>
     </div>
   );
 }

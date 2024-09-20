@@ -16,7 +16,7 @@ export default function Home() {
   const [eventList, setEventList] = useState([]);
   const [targetEvent, setTargetEvent] = useState();
 
-  useEffect(() => { 
+  useEffect(() => {
     getEventList();
   }, []);
 
@@ -54,7 +54,6 @@ export default function Home() {
     }
   };
 
-  console.log(eventList);
   return (
     <ExploreDataContext.Provider
       value={{

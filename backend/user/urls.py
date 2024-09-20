@@ -13,5 +13,6 @@ urlpatterns = [
     
     path('profile-memories/add/<pk1>/<pk2>/', views.addMemories, name='add-profile-memories'),
     path('profile-memories/delete/<pk>/', views.deleteMemory, name='delete-profile-memories'),
-    path('profile-memories/list/<pk1>/', views.memoriesList, name = 'profile-memories-list' )
+    path('profile-memories/list/<pk1>/', views.memoriesList, name = 'profile-memories-list' ),
+    path('profile-memories/get/<pk>/', views.getMemories, name = 'get-profile-memories' )
 ]
