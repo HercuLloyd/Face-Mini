@@ -15,7 +15,7 @@ export default function ProfilePost({
   text,
   image,
   memoryId,
-  updateList,
+  deletePost,
 }) {
   // dropdown state
   // button that changes dropdown state
@@ -33,7 +33,8 @@ export default function ProfilePost({
 
   useEffect(() => {
     getMemoryData();
-  }, []);
+    setImageCounter(0);
+  }, [image]);
 
   const getMemoryData = async () => {
     await api
@@ -42,6 +43,7 @@ export default function ProfilePost({
       .then((data) => {
         const imageList = data.map((memory) => memory.image);
         imageList.unshift(image);
+        console.log(image);
         setMemoryImages(imageList.filter(Boolean));
       });
   };
@@ -49,15 +51,15 @@ export default function ProfilePost({
   //have post show an image in that list and the current index increase on click
   //when at end of list loop back to the first element
 
-  const deletePost = async () => {
-    await api.delete(`/user/profile-memories/delete/${memoryId}/`);
-    await api
-      .get(`/user/profile-memories/list/${profilePageData.profileData.id}/`)
-      .then((res) => res.data)
-      .then((data) => {
-        updateList(data);
-      });
-  };
+  // const deletePost = async () => {
+  //   await api.delete(`/user/profile-memories/delete/${memoryId}/`);
+  //   await api
+  //     .get(`/user/profile-memories/list/${profilePageData.profileData.id}/`)
+  //     .then((res) => res.data)
+  //     .then((data) => {
+  //       updateList(data);
+  //     });
+  // };
 
   return (
     <div className="flex w-96 flex-col gap-1 pt-4">
@@ -75,7 +77,7 @@ export default function ProfilePost({
             </div>
           </div>
         </button>
-        <div>
+        <div className="relative">
           <button
             className={`ml-2 flex h-10 w-10 items-center justify-center rounded-[3px] bg-green-400 pt-2 text-3xl ${profilePageData.profileData.id == profileData.id ? "" : "hidden"}`}
             onClick={() => {
@@ -87,12 +89,9 @@ export default function ProfilePost({
           <ProfilePostDropDown
             visible={dropDown}
             onClose={() => setDropDown(false)}
-            deletePost={() => setDeleteModal(true)}
-          />
-          <DeleteProfileEventModal
-            open={deleteModal}
-            onClose={() => setDeleteModal(false)}
-            deletePost={() => deletePost()}
+            deletePost={() => {
+              deletePost();
+            }}
           />
         </div>
       </div>
@@ -119,6 +118,11 @@ export default function ProfilePost({
           }}
         ></button>
       </div>
+      {/* <DeleteProfileEventModal
+        open={deleteModal}
+        onClose={() => setDeleteModal(false)}
+        deletePost={() => deletePost()}
+      /> */}
     </div>
   );
 }

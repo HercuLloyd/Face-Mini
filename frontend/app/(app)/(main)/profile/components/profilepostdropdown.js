@@ -16,7 +16,7 @@ export default function ProfilePostDropDown({ visible, onClose, deletePost }) {
   return (
     <div
       ref={dropDownRef}
-      className={`absolute mt-2 flex w-20 flex-col divide-y divide-gray-400 rounded-md bg-white p-2 text-start shadow-md ${
+      className={`absolute top-0 mt-2 flex w-20 flex-col divide-y divide-gray-400 rounded-md bg-white p-2 text-start shadow-md ${
         visible ? "" : "hidden"
       }`}
     >

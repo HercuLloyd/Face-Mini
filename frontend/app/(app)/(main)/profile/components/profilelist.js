@@ -1,5 +1,6 @@
 import PostListContainer from "@/app/util/components/postlistcontainer";
 import ProfilePost from "./profilepost";
+import DeleteProfileEventModal from "./deleteprofileeventmodal";
 import ProfileHeader from "./profileheader";
 import { ProfilePageContext } from "../[id]/page";
 import { useContext, useEffect, useState } from "react";
@@ -9,6 +10,8 @@ export default function ProfileList() {
   //get profile
   const profileContext = useContext(ProfilePageContext);
   const [memoriesData, setMemoriesData] = useState([]);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [seletedPost, setSeletedPost] = useState();
   const profileId = profileContext.profileData.id;
 
   useEffect(() => {
@@ -23,6 +26,7 @@ export default function ProfileList() {
     const time = new Date(value);
     return f.format(time);
   }
+  console.log(memoriesData);
 
   const loadMems = async () => {
     if (profileId !== undefined)
@@ -30,9 +34,16 @@ export default function ProfileList() {
         .get(`/user/profile-memories/list/${profileContext.profileData.id}/`)
         .then((res) => res.data)
         .then((data) => {
-          console.log(data);
           setMemoriesData(data.reverse());
         });
+  };
+
+  const deletePost = async (memoryId) => {
+    await api.delete(`/user/profile-memories/delete/${memoryId}/`);
+    //remove element from local list and rerender
+    const newList = memoriesData.filter((post) => post.id != seletedPost);
+    setMemoriesData(newList);
+    console.log(newList);
   };
 
   const profileMemoriesList = () => {
@@ -46,7 +57,10 @@ export default function ProfileList() {
         time={date(memory.created_at)}
         text={memory.event_title}
         image={memory.image}
-        updateList={(data) => setMemoriesData(data)}
+        deletePost={() => {
+          setDeleteModal(true);
+          setSeletedPost(memory.id);
+        }}
       />
     ));
   };
@@ -54,6 +68,11 @@ export default function ProfileList() {
   return (
     <div>
       <PostListContainer>{profileMemoriesList()}</PostListContainer>
+      <DeleteProfileEventModal
+        open={deleteModal}
+        onClose={() => setDeleteModal(false)}
+        deletePost={() => deletePost(seletedPost)}
+      />
     </div>
   );
 }
