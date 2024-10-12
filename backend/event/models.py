@@ -81,3 +81,15 @@ class ProfileMemoriesComments(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="host_of_comment")
     message = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class EventUser(models.Model):
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="user_attending")
+    event = models.ForeignKey(Event,on_delete=models.CASCADE, related_name ="event_user_attending")
+    extra_info = models.CharField(max_length=200, blank=True)
+    
+    @property
+    def display_name(self):
+        return self.user.display_name
+    @property
+    def profile_picture(self):
+        return self.user.profile_picture

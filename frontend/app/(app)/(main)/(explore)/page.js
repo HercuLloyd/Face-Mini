@@ -2,23 +2,31 @@
 
 import Header from "./components/header";
 import PostList from "./components/postlist";
-import { createContext, use, useEffect, useState } from "react";
+import { createContext, use, useContext, useEffect, useState } from "react";
 import EventForm from "./components/eventform";
 import Modal from "@/app/util/components/modal";
 import api from "@/app/util/api";
 import UpdateEventForm from "./components/updateeventform";
+import { ProfileContext } from "@/app/context/AuthContext";
 
 export const ExploreDataContext = createContext();
 
 export default function Home() {
+  const profileData = useContext(ProfileContext);
+
   const [eventModal, setEventModal] = useState(false);
   const [updateEventModal, setUpdateEventModal] = useState(false);
   const [eventList, setEventList] = useState([]);
   const [targetEvent, setTargetEvent] = useState();
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
 
   useEffect(() => {
     getEventList();
   }, []);
+
+  useEffect(() => {
+    getUpcomingEvents();
+  }, [profileData]);
 
   const getEventList = async () => {
     try {
@@ -32,6 +40,16 @@ export default function Home() {
     } catch (error) {
       alert(error);
     }
+  };
+  const getUpcomingEvents = async () => {
+    if (profileData.id)
+      await api
+        .get(`/user/profile-upcoming/list/${profileData.id}/`)
+        .then((res) => res.data)
+        .then((data) => {
+          setUpcomingEvents(data);
+          console.log(data);
+        });
   };
 
   const modals = () => {
@@ -66,6 +84,8 @@ export default function Home() {
         setUpdateEventModal,
         targetEvent,
         setTargetEvent,
+        upcomingEvents,
+        getUpcomingEvents,
       }}
     >
       <div className="w-full">

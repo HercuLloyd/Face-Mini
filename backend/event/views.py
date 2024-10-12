@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from rest_framework import generics, status
-from .serializers import EventSerializer, EventPostSerializer, MemoriesSerializer
+from .serializers import EventSerializer, EventPostSerializer, MemoriesSerializer, EventUserSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Event, EventPost, EventMemories
+from .models import Event, EventPost, EventMemories, EventUser
+from user.models import Profile
 from rest_framework.views import APIView
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 class EventList(generics.ListCreateAPIView):
@@ -122,3 +125,26 @@ class UpdateMemoriesPost(APIView):
             return Response(serializer.data, status= status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+def createEventUser(request, profileId, eventId):
+    profile= Profile.objects.get(pk = profileId)
+    event = Event.objects.get(pk = eventId)
+    user = EventUser(user=profile, event=event)
+    serializer = EventUserSerializer(user)
+    user.save()
+    return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt
+def deleteEventUser(request, user):
+    profile = EventUser.objects.get(pk = user)
+    serializer = EventUserSerializer(user)
+    profile.delete()
+    return JsonResponse(serializer.data, safe= False)
+        
+def eventUserList(request, event):
+    currentEvent = Event.objects.get(pk=event)
+    userList = currentEvent.event_user_attending.all()
+    serializer = EventUserSerializer(userList, many=True)
+    return JsonResponse(serializer.data, safe=False)
+ 

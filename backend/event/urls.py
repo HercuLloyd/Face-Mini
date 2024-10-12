@@ -14,6 +14,10 @@ urlpatterns = [
     path('create-event-post/', views.CreateEventPostView.as_view(), name='create_event_post'),
     path('event-post/update/<pk>/', views.UpdateEventPost.as_view(), name='update_event_post'),
     path('event-post/delete/<pk>/', views.DeleteEventPost.as_view(), name='delete_event_post'),
+    
+    path('event-user/create/<profileId>/<eventId>/', views.createEventUser, name= 'create_event_user'),
+    path('event-user/delete/<user>/', views.deleteEventUser, name= 'delete_event_user'),
+    path('event-user/list/<event>/', views.eventUserList, name='event_user_list'),
 
     path('memories-list/<event>/', views.MemoriesList.as_view(), name='memories_list'),
     path('memories-post/', views.MemoriesPostView.as_view(), name='memories-post'),

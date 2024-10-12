@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group, User
 from .models import Profile
-from event.models import ProfileMemories
+from event.models import ProfileMemories, EventUser
 # Register your models here.
 
 
@@ -17,10 +17,21 @@ class UserAdmin(admin.ModelAdmin):
     fields = ['id', 'username', 'password', 'email']
     inlines = [ProfileInline]
 
+class EventUserInline(admin.StackedInline):
+    model = EventUser
+    readonly_fields = ('id',)
+    fields = ['id', 'user', 'event', 'extra_info']
+
+class ProfileMemoriesInline (admin.StackedInline):
+    model = ProfileMemories
+    readonly_fields = ('id',)
+    fields = ['user', 'event']
+
 class ProfileAdmin (admin.ModelAdmin):
     model = Profile
     readonly_fields = ('id',)
     fields = ['id', 'display_name', 'bio', 'profile_picture'] 
+    inlines = [EventUserInline, ProfileMemoriesInline]
 
 class ProfileMemoriesAdmin (admin.ModelAdmin):
     model = ProfileMemories

@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from user.models import Profile 
-from event.models import Event, ProfileMemories
+from event.models import Event, ProfileMemories, EventUser
 from django.contrib.auth.models import User
 from user.serializer import CreateUserSerializer, ProfileSerializer, ProfileFormSerializer, UserSeralizer
-from event.serializers import EventSerializer, ProfileMemoriesSerializer, MemoriesSerializer
+from event.serializers import EventSerializer, ProfileMemoriesSerializer, MemoriesSerializer, EventUserSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
@@ -85,6 +85,15 @@ def memoriesList(request, pk1):
     memList = profile.user_profile_memories.all()
     serializer = ProfileMemoriesSerializer(memList, many=True)
     return JsonResponse(serializer.data, safe=False)
+
+def userUpcoming(request, profile):
+    user = Profile.objects.get(pk=profile)
+    eventList = user.user_attending.all()
+    serializer = EventUserSerializer(eventList, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+    
+    
 
 # create a profile memories object with associated event
 # add that profile memory to the profile memories list in profile

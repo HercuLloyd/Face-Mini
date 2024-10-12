@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, EventPost, EventMemories
+from .models import Event, EventPost, EventMemories, EventUser
 # Register your models here.
 
 
@@ -8,12 +8,16 @@ class EventPostInline (admin.StackedInline):
     readonly_fields = ('id', 'created_at')
     fields = ['id', 'user', 'created_at', 'message', 'image']
 
-#Event Admin
+class EventUserInline (admin.StackedInline):
+    model = EventUser
+    readonly_fields = ('id',)
+    fields = ['id', 'user', 'event', 'extra_info']
+
 class EventAdmin (admin.ModelAdmin):
     model = Event
     readonly_fields = ('id',)
     fields = ['id', 'host', 'event_title', 'event_description', 'location', 'time', 'image']
-    inlines = [EventPostInline]
+    inlines = [EventPostInline, EventUserInline]
 
 class EventPostAdmin(admin.ModelAdmin):
     model = EventPost

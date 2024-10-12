@@ -7,7 +7,6 @@ export const ProfileContext = createContext();
 
 export default function AuthContext({ children }) {
   const [profileData, setProfileData] = useState({});
-
   useEffect(() => {
     getProfile();
   }, []);

@@ -43,23 +43,9 @@ export default function ProfilePost({
       .then((data) => {
         const imageList = data.map((memory) => memory.image);
         imageList.unshift(image);
-        console.log(image);
         setMemoryImages(imageList.filter(Boolean));
       });
   };
-
-  //have post show an image in that list and the current index increase on click
-  //when at end of list loop back to the first element
-
-  // const deletePost = async () => {
-  //   await api.delete(`/user/profile-memories/delete/${memoryId}/`);
-  //   await api
-  //     .get(`/user/profile-memories/list/${profilePageData.profileData.id}/`)
-  //     .then((res) => res.data)
-  //     .then((data) => {
-  //       updateList(data);
-  //     });
-  // };
 
   return (
     <div className="flex w-96 flex-col gap-1 pt-4">

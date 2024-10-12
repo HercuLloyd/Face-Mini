@@ -7,6 +7,7 @@ import MemoriesForm from "../component/memoriesform";
 import MessageInput from "../component/messageinput";
 import Modal from "@/app/util/components/modal";
 import api from "@/app/util/api";
+import Attendance from "../component/attendancelist/attendance";
 
 //context that has list of all event post and memories
 export const EventDataContext = createContext();
@@ -60,17 +61,21 @@ export default function Event({ params }) {
       }}
     >
       <div className="w-full">
-        <EventHeader
-          currentTab={filter}
-          setTab={(tab) => setFilter(tab)}
-          createButton={() => setMemoriesModal(true)}
-          eventId={params.id}
-        />
-        {showList()}
+        <div>
+          <EventHeader
+            currentTab={filter}
+            setTab={(tab) => setFilter(tab)}
+            createButton={() => setMemoriesModal(true)}
+            eventId={params.id}
+          />
+          {showList()}
+        </div>
+        <div>
+          <Attendance />
+        </div>
         <Modal open={memoriesModal} onClose={() => setMemoriesModal(false)}>
           <MemoriesForm eventId={params.id} />
         </Modal>
-
         <MessageInput tab={filter} event={params.id} />
       </div>
     </EventDataContext.Provider>

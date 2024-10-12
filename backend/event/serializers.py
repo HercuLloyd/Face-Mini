@@ -1,4 +1,4 @@
-from .models import Event, EventPost, EventMemories, ProfileMemories
+from .models import Event, EventPost, EventMemories, ProfileMemories, EventUser
 from user.models import Profile
 from rest_framework import serializers
 
@@ -32,3 +32,10 @@ class ProfileMemoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileMemories
         fields = ['id','user', 'event', 'host_name', 'location', 'event_title', 'image', 'created_at', 'profile_picture']
+
+class EventUserSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    event = serializers.PrimaryKeyRelatedField(read_only=True)
+    class Meta:
+        model = EventUser
+        fields = ['id', 'user', 'event', 'extra_info']

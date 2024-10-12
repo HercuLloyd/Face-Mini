@@ -4,12 +4,9 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect, useContext } from "react";
 import PostDropDown from "./postdropdown";
 import { ExploreDataContext } from "../page";
-import UpdateEventForm from "./updateeventform";
-import Modal from "@/app/util/components/modal";
-import { jwtDecode } from "jwt-decode";
-import { ACCESS_TOKEN } from "@/app/util/constants";
 import DeleteConfirmationModal from "./deleteconfirmationmodal";
 import { ProfileContext } from "@/app/context/AuthContext";
+import EventFooter from "./postfooter/footer";
 
 export default function Post({
   id,
@@ -113,6 +110,7 @@ export default function Post({
       >
         <img className="h-full w-full rounded-sm object-cover" src={image} />
       </div>
+      <EventFooter eventId={id} />
     </div>
   );
 }
