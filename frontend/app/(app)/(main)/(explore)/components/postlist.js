@@ -1,4 +1,4 @@
-import PostListContainer from "@/app/util/components/postlistcontainer";
+import PostListContainer from "@/app/util/components/containers/postlistcontainer";
 import Post from "./post";
 import { useContext, useEffect, useState } from "react";
 import api from "@/app/util/api";

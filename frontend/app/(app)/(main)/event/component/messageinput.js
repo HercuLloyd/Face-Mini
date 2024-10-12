@@ -22,16 +22,12 @@ export default function MessageInput({ tab, event }) {
     console.log(postImage);
   };
 
-  const refreshData = () => {
-    window.location.reload(false);
-  };
-
   const config = { headers: { "Content-Type": "multipart/form-data" } };
   const axiosURL = `${BASE_URL}/event/create-event-post/`;
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 flex justify-center pl-[240px] ${
+      className={`absolute bottom-0 right-0 flex justify-center ${
         tab != "chat" ? "hidden" : ""
       }`}
     >

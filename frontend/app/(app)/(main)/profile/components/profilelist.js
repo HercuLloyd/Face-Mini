@@ -1,4 +1,4 @@
-import PostListContainer from "@/app/util/components/postlistcontainer";
+import PostListContainer from "@/app/util/components/containers/postlistcontainer";
 import ProfilePost from "./profilepost";
 import DeleteProfileEventModal from "./deleteprofileeventmodal";
 import ProfileHeader from "./profileheader";

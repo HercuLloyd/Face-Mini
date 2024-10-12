@@ -8,6 +8,8 @@ import MessageInput from "../component/messageinput";
 import Modal from "@/app/util/components/modal";
 import api from "@/app/util/api";
 import Attendance from "../component/attendancelist/attendance";
+import MainPanel from "@/app/util/components/containers/mainpanel";
+import SecondaryPanel from "@/app/util/components/containers/secondarypanel";
 
 //context that has list of all event post and memories
 export const EventDataContext = createContext();
@@ -60,8 +62,8 @@ export default function Event({ params }) {
         setTargetEvent,
       }}
     >
-      <div className="w-full">
-        <div>
+      <div className="flex w-full">
+        <MainPanel>
           <EventHeader
             currentTab={filter}
             setTab={(tab) => setFilter(tab)}
@@ -69,14 +71,14 @@ export default function Event({ params }) {
             eventId={params.id}
           />
           {showList()}
-        </div>
-        <div>
+          <MessageInput tab={filter} event={params.id} />
+        </MainPanel>
+        <SecondaryPanel>
           <Attendance />
-        </div>
+        </SecondaryPanel>
         <Modal open={memoriesModal} onClose={() => setMemoriesModal(false)}>
           <MemoriesForm eventId={params.id} />
         </Modal>
-        <MessageInput tab={filter} event={params.id} />
       </div>
     </EventDataContext.Provider>
   );

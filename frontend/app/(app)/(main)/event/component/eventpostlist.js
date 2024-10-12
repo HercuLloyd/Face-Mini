@@ -1,5 +1,5 @@
 "use client";
-import PostListContainer from "@/app/util/components/postlistcontainer";
+import PostListContainer from "@/app/util/components/containers/postlistcontainer";
 import EventPost from "./eventpost";
 import api from "@/app/util/api";
 import { useRouter } from "next/navigation";
