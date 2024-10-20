@@ -93,3 +93,12 @@ class EventUser(models.Model):
     @property
     def profile_picture(self):
         return self.user.profile_picture
+    @property
+    def event_title(self):
+        return self.event.event_title
+    @property
+    def location(self):
+        return self.event.location
+    @property
+    def time(self):
+        return self.event.time

@@ -36,6 +36,7 @@ class ProfileMemoriesSerializer(serializers.ModelSerializer):
 class EventUserSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     event = serializers.PrimaryKeyRelatedField(read_only=True)
+    profile_picture = serializers.ImageField(read_only=True, required=False)
     class Meta:
         model = EventUser
-        fields = ['id', 'user', 'event', 'extra_info']
+        fields = ['id', 'user', 'event', 'extra_info', 'display_name', 'profile_picture', 'event_title', 'location', 'time',]

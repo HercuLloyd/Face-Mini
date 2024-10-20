@@ -18,6 +18,7 @@ urlpatterns = [
     path('event-user/create/<profileId>/<eventId>/', views.createEventUser, name= 'create_event_user'),
     path('event-user/delete/<user>/', views.deleteEventUser, name= 'delete_event_user'),
     path('event-user/list/<event>/', views.eventUserList, name='event_user_list'),
+    path('event-user/update/<pk>/', views.UpdateEventUser.as_view(), name='update_event_user'),
 
     path('memories-list/<event>/', views.MemoriesList.as_view(), name='memories_list'),
     path('memories-post/', views.MemoriesPostView.as_view(), name='memories-post'),

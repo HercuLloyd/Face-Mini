@@ -148,3 +148,6 @@ def eventUserList(request, event):
     serializer = EventUserSerializer(userList, many=True)
     return JsonResponse(serializer.data, safe=False)
  
+class UpdateEventUser(generics.UpdateAPIView):
+    queryset = EventUser.objects.all()
+    serializer_class = EventUserSerializer

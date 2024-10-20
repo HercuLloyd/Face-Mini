@@ -5,6 +5,7 @@ import ProfileHeader from "../components/profileheader";
 import ProfileList from "../components/profilelist";
 import SettingsForm from "../components/settingsform";
 import api from "@/app/util/api";
+import Upcoming from "../components/upcoming/upcoming";
 
 export const ProfilePageContext = createContext(null);
 
@@ -36,7 +37,7 @@ export default function Profile({ params }) {
     <ProfilePageContext.Provider
       value={{ profileData, setProfileData, getProfile }}
     >
-      <div className="w-full">
+      <div className="flex w-full flex-col">
         <ProfileHeader
           settingsButton={() => setSettingsModal(true)}
           username={profileData.display_name}
@@ -44,6 +45,7 @@ export default function Profile({ params }) {
           profilePic={profileData.profile_picture}
           pageId={params.id}
         />
+        <Upcoming profileId={params.id} />
         <ProfileList />
         <Modal open={settingsModal} onClose={() => setSettingsModal(false)}>
           <SettingsForm onClose={() => setSettingsModal(false)} />

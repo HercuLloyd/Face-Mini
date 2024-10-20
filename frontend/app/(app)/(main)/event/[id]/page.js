@@ -23,8 +23,11 @@ export default function Event({ params }) {
   const [updateEventPostModal, setUpdateEventPostModal] = useState(false);
   const [targetEvent, setTargetEvent] = useState(false);
 
+  const [attendance, setAttendance] = useState([]);
+
   useEffect(() => {
     getLists();
+    getAttendance();
   }, []);
 
   const getLists = () => {
@@ -42,6 +45,15 @@ export default function Event({ params }) {
       });
   };
 
+  const getAttendance = () => {
+    api
+      .get(`/event/event-user/list/${params.id}/`)
+      .then((res) => res.data)
+      .then((data) => {
+        setAttendance(data);
+        console.log(data);
+      });
+  };
   const showList = () => {
     if (filter == "chat") return <EventPostList id={params.id} />;
     else if (filter == "memories") return <MemoriesList eventId={params.id} />;
@@ -60,6 +72,7 @@ export default function Event({ params }) {
         setUpdateEventPostModal,
         targetEvent,
         setTargetEvent,
+        attendance,
       }}
     >
       <div className="flex w-full">

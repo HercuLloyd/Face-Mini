@@ -170,7 +170,7 @@ export default function UpdateEventForm({ onClose, eventId }) {
             name="event_description"
             type="text"
             component="textarea"
-            className="h-24 w-80 rounded-sm bg-gray-200 p-2 px-2"
+            className="h-24 w-80 resize-none rounded-sm bg-gray-200 p-2 px-2"
           />
 
           <button

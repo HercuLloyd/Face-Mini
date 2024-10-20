@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { ACCESS_TOKEN } from "@/app/util/constants";
 import { useContext, useEffect, useState } from "react";
 import { ProfilePageContext } from "../[id]/page";
+import Upcoming from "./upcoming/upcoming";
 export default function ProfileHeader({
   settingsButton,
   username,
@@ -36,7 +37,7 @@ export default function ProfileHeader({
   };
   return (
     <div>
-      <div className="flex h-20 items-center justify-end px-4">
+      <div className="h-fill flex items-center justify-end px-4 pt-4">
         <button
           className={`h-min rounded-md bg-green-600 px-4 py-2 text-white ${profileData.id == pageId ? "" : "hidden"}`}
           onClick={settingsButton}
@@ -44,15 +45,12 @@ export default function ProfileHeader({
           Settings
         </button>
       </div>
-      <div className="flex h-60 items-center justify-center border-b border-slate-400">
+      <div className="flex h-60 flex-col items-center justify-center border-b border-slate-400">
         <div className={`flex w-96 gap-2`}>
-          <div className="h-20 w-20 shrink-0 rounded-md bg-gray-200">
-            <img
-              src={profileDataContext.profileData.profile_picture}
-              className={`h-20 w-20 shrink-0 rounded-md object-cover text-center ${profileDataContext.profileData.profile_picture == null ? "hidden" : ""}`}
-            />
-          </div>
-
+          <img
+            src={profileDataContext.profileData.profile_picture}
+            className={`h-20 w-20 shrink-0 rounded-md object-cover text-center bg-gray-400${profileDataContext.profileData.profile_picture == null ? "hidden" : ""}`}
+          />
           <div className="flex w-full flex-col justify-center">
             <h1 className="text-2xl">{username}</h1>
             <h1>{bio}</h1>
