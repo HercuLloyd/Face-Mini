@@ -54,6 +54,15 @@ export default function UpcomingList({ profileId }) {
     return list;
   };
 
-  console.log(upcomingList);
-  return <div className="flex flex-col gap-2">{upcoming}</div>;
+  console.log(upcomingList.length === 0);
+  return (
+    <div className="flex flex-col gap-2">
+      <h1
+        className={`${upcomingList.length === 0 ? "hidden" : "flex w-96 text-lg font-medium"}`}
+      >
+        Upcoming
+      </h1>
+      {upcoming}
+    </div>
+  );
 }

@@ -9,18 +9,9 @@ export default function UpcomingEvent({
   time,
   eventId,
 }) {
-  useEffect(() => {
-    compareToCurrentDate();
-  }, []);
+  useEffect(() => {}, []);
 
   const router = useRouter();
-
-  const compareToCurrentDate = () => {
-    const eventTime = new Date(time);
-    const current = new Date();
-    if (eventTime < current) console.log("completed");
-    if (eventTime > current) console.log("upcoming");
-  };
 
   function date(value) {
     const f = new Intl.DateTimeFormat("en-us", {
@@ -33,7 +24,7 @@ export default function UpcomingEvent({
 
   return (
     <div
-      className="flex w-96 gap-2 rounded-md bg-green-100 p-2 text-sm leading-tight"
+      className="flex w-96 cursor-pointer gap-2 rounded-md bg-green-100 p-2 text-sm leading-tight"
       onClick={() => router.push(`/event/${eventId}/`)}
     >
       <img className="h-12 w-12 rounded-sm object-cover" src={profilePicture} />
