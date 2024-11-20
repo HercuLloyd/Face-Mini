@@ -7,6 +7,8 @@ import api from "@/app/util/api";
 import { ProfilePageContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
+import { TbDotsVertical } from "react-icons/tb";
+
 export default function ProfilePost({
   profilePic,
   username,
@@ -65,12 +67,12 @@ export default function ProfilePost({
         </button>
         <div className="relative">
           <button
-            className={`ml-2 flex h-10 w-10 items-center justify-center rounded-[3px] bg-green-400 pt-2 text-3xl ${profilePageData.profileData.id == profileData.id ? "" : "hidden"}`}
+            className={`ml-2 flex items-center justify-center rounded-[3px] bg-green-400 p-2 text-3xl ${profilePageData.profileData.id == profileData.id ? "" : "hidden"}`}
             onClick={() => {
               setDropDown(!dropDown);
             }}
           >
-            *
+            <TbDotsVertical size={22} />
           </button>
           <ProfilePostDropDown
             visible={dropDown}

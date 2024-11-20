@@ -9,11 +9,17 @@ export default function PostList() {
   const exploreData = useContext(ExploreDataContext);
 
   function date(value) {
+    // console.log(new Date(value).getUTCMilliseconds());
+    // console.log(value);
+    const time = new Date(value);
+    if (value == null) {
+      return "";
+    }
     const f = new Intl.DateTimeFormat("en-us", {
       dateStyle: "long",
       timeStyle: "short",
     });
-    const time = new Date(value);
+
     return f.format(time);
   }
 
@@ -34,7 +40,7 @@ export default function PostList() {
     return list.reverse();
   };
   return (
-    <div>
+    <div className="">
       <PostListContainer>{exploreList()}</PostListContainer>
     </div>
   );

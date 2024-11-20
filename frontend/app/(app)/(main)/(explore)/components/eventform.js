@@ -8,6 +8,8 @@ import { ExploreDataContext } from "../page";
 import { ProfileContext } from "@/app/context/AuthContext";
 import { BASE_URL } from "@/app/util/constants";
 
+import { TbPhotoPlus } from "react-icons/tb";
+
 export default function EventForm({ onClose }) {
   const exploreData = useContext(ExploreDataContext);
   const profileData = useContext(ProfileContext);
@@ -24,12 +26,12 @@ export default function EventForm({ onClose }) {
   const URL = `${BASE_URL}/event/post/`;
 
   const EventPostSchema = Yup.object().shape({
-    event_title: Yup.string()
-      .required("Required")
-      .min(6, "Must be at least 6 characters long"),
-    location: Yup.string().required("Required"),
+    event_title: Yup.string().min(6, "Must be at least 6 characters long"),
+    location: Yup.string(),
     time: Yup.string().required("Required"),
-    event_description: Yup.string().required("Required"),
+    event_description: Yup.string()
+      .required("Required")
+      .max(300, "Must be 300 characters or less"),
   });
 
   return (
@@ -77,7 +79,7 @@ export default function EventForm({ onClose }) {
               htmlFor="coverImage"
               className="flex h-10 w-10 items-center justify-center rounded-sm bg-green-600 text-xl text-white"
             >
-              #
+              <TbPhotoPlus />
             </label>
             <Field
               id="coverImage"
@@ -143,6 +145,7 @@ export default function EventForm({ onClose }) {
             >
               Description
             </label>
+            <h1>0/300</h1>
             <ErrorStyling>
               <ErrorMessage name="event_description" />
             </ErrorStyling>

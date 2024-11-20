@@ -8,9 +8,9 @@ def upload_to(instance, filename):
 # Event
 class Event(models.Model):
     host = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    event_title = models.CharField(max_length=50)
-    event_description = models.CharField(max_length=200)
-    location = models.CharField(max_length=50)
+    event_title = models.CharField(null=True, blank=True, max_length=50)
+    event_description = models.CharField(null=True, blank=True, max_length=300)
+    location = models.CharField(null=True, blank=True, max_length=50)
     time = models.DateTimeField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True, upload_to=upload_to)
 

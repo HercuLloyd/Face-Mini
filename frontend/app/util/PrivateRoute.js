@@ -3,8 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import { jwtDecode } from "jwt-decode";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
 import api from "./api";
-import Sidebar from "./components/sidebar/sidebar";
 import AuthContext from "../context/AuthContext";
+import NavBar from "./components/navbar/navbar";
 
 const PrivateRoute = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState(null);
@@ -57,7 +57,6 @@ const PrivateRoute = ({ children }) => {
   return (
     <div className="flex w-full">
       <AuthContext>
-        <Sidebar />
         {isAuthorized ? children : redirect("/sign-in")}
       </AuthContext>
     </div>

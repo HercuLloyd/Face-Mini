@@ -11,6 +11,8 @@ import ErrorStyling from "@/app/util/components/forms/errorstyling";
 import { ExploreDataContext } from "../page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
+import { TbPhotoPlus } from "react-icons/tb";
+
 export default function UpdateEventForm({ onClose, eventId }) {
   const exploreData = useContext(ExploreDataContext);
   const profileData = useContext(ProfileContext);
@@ -40,12 +42,10 @@ export default function UpdateEventForm({ onClose, eventId }) {
   };
 
   const EventPostSchema = Yup.object().shape({
-    event_title: Yup.string()
-      .required("Required")
-      .min(6, "Must be at least 6 characters long"),
-    location: Yup.string().required("Required"),
-    time: Yup.string().required("Required"),
-    event_description: Yup.string().required("Required"),
+    event_title: Yup.string().min(6, "Must be at least 6 characters long"),
+    location: Yup.string(),
+    time: Yup.string().nullable(true),
+    event_description: Yup.string().max(300, "Must be 300 characters or less"),
   });
 
   return (
@@ -94,7 +94,7 @@ export default function UpdateEventForm({ onClose, eventId }) {
               htmlFor="coverImage"
               className="flex h-10 w-10 items-center justify-center rounded-sm bg-green-600 text-xl text-white"
             >
-              #
+              <TbPhotoPlus />
             </label>
             <Field
               id="coverImage"

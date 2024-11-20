@@ -7,6 +7,9 @@ import axios from "axios";
 import { EventDataContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
+import { TbPhotoPlus } from "react-icons/tb";
+import { TbSend2 } from "react-icons/tb";
+
 export default function MessageInput({ tab, event }) {
   const eventData = useContext(EventDataContext);
   const profileData = useContext(ProfileContext);
@@ -27,7 +30,7 @@ export default function MessageInput({ tab, event }) {
 
   return (
     <div
-      className={`absolute bottom-0 right-0 flex justify-center ${
+      className={`fixed bottom-[48px] flex justify-center sm:bottom-0 ${
         tab != "chat" ? "hidden" : ""
       }`}
     >
@@ -60,7 +63,7 @@ export default function MessageInput({ tab, event }) {
           setPostImage("");
         }}
       >
-        <Form className="h-full bg-white pb-2">
+        <Form className="h-full bg-white pb-1">
           <div
             className={`flex w-full justify-end py-2 ${
               previewImage == "" ? "hidden" : ""
@@ -84,9 +87,9 @@ export default function MessageInput({ tab, event }) {
 
             <label
               htmlFor="coverImage"
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-red-600 text-xl text-white`}
+              className={`flex shrink-0 items-center justify-center rounded-md p-2 text-xl hover:bg-gray-300`}
             >
-              #
+              <TbPhotoPlus size={26} />
             </label>
             <Field
               id="coverImage"
@@ -101,7 +104,7 @@ export default function MessageInput({ tab, event }) {
               type="submit"
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-green-600 p-2 text-center text-xl text-white"
             >
-              #
+              <TbSend2 />
             </button>
           </div>
         </Form>

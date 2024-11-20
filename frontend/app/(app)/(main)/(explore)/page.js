@@ -8,6 +8,8 @@ import Modal from "@/app/util/components/modal";
 import api from "@/app/util/api";
 import UpdateEventForm from "./components/updateeventform";
 import { ProfileContext } from "@/app/context/AuthContext";
+import MainPanel from "@/app/util/components/containers/mainpanel";
+import SecondaryPanel from "@/app/util/components/containers/secondarypanel";
 
 export const ExploreDataContext = createContext();
 
@@ -88,11 +90,14 @@ export default function Home() {
         getUpcomingEvents,
       }}
     >
-      <div className="w-full">
-        <Header createButton={() => setEventModal(true)} />
-        <PostList />
+      <div className="flex w-full">
+        <MainPanel>
+          <Header createButton={() => setEventModal(true)} />
+          <PostList />
+          {modals()}
+        </MainPanel>
+        <SecondaryPanel></SecondaryPanel>
       </div>
-      {modals()}
     </ExploreDataContext.Provider>
   );
 }

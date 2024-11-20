@@ -24,7 +24,7 @@ export default function UpcomingEvent({
 
   return (
     <div
-      className="flex w-96 cursor-pointer gap-2 rounded-md bg-green-100 p-2 text-sm leading-tight"
+      className="flex w-96 cursor-pointer gap-2 rounded-md bg-[#EEFDEE] p-2 text-sm leading-tight"
       onClick={() => router.push(`/event/${eventId}/`)}
     >
       <img className="h-12 w-12 rounded-sm object-cover" src={profilePicture} />

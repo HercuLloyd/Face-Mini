@@ -8,6 +8,8 @@ import DeleteConfirmationModal from "./deleteconfirmationmodal";
 import { ProfileContext } from "@/app/context/AuthContext";
 import EventFooter from "./postfooter/footer";
 
+import { TbDotsVertical } from "react-icons/tb";
+
 export default function Post({
   id,
   host,
@@ -80,10 +82,10 @@ export default function Post({
 
         <div className="">
           <button
-            className={`ml-2 flex h-10 w-10 items-center justify-center rounded-[3px] bg-green-400 pt-2 text-3xl ${host == profileData.id ? "" : "hidden"}`}
+            className={`ml-2 flex items-center justify-center rounded-[3px] bg-green-400 p-2 text-3xl ${host == profileData.id ? "" : "hidden"}`}
             onClick={() => setShowDropDown(!showDropDown)}
           >
-            *
+            <TbDotsVertical size={22} />
           </button>
           <PostDropDown
             visible={showDropDown}
@@ -98,17 +100,21 @@ export default function Post({
           />
         </div>
       </div>
-      <div>
+      <div className="">
         <h1 className="text-sm font-semibold">{event_title}</h1>
         <h1 className="text-sm">{text}</h1>
       </div>
 
       <div
-        className={`flex h-96 w-96 flex-col justify-center rounded-md bg-slate-400 text-center ${
+        className={`flex h-96 w-96 cursor-default flex-col justify-center rounded-md bg-slate-400 text-center ${
           image ? "" : "hidden"
         }`}
       >
-        <img className="h-full w-full rounded-sm object-cover" src={image} />
+        <img
+          className="h-full w-full rounded-sm object-cover"
+          src={image}
+          onClick={() => router.push(`/event/${id}/`)}
+        />
       </div>
       <EventFooter eventId={id} />
     </div>

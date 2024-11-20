@@ -3,7 +3,9 @@ import { jwtDecode } from "jwt-decode";
 import { ACCESS_TOKEN } from "@/app/util/constants";
 import { useContext, useEffect, useState } from "react";
 import { ProfilePageContext } from "../[id]/page";
-import Upcoming from "./upcoming/upcoming";
+
+import { TbSettings } from "react-icons/tb";
+
 export default function ProfileHeader({
   settingsButton,
   username,
@@ -37,12 +39,12 @@ export default function ProfileHeader({
   };
   return (
     <div>
-      <div className="h-fill flex items-center justify-end px-4 pt-4">
+      <div className="h-fill flex items-center justify-end pt-4">
         <button
-          className={`h-min rounded-md bg-green-600 px-4 py-2 text-white ${profileData.id == pageId ? "" : "hidden"}`}
+          className={`h-min rounded-md p-2 hover:bg-gray-200 ${profileData.id == pageId ? "" : "hidden"}`}
           onClick={settingsButton}
         >
-          Settings
+          <TbSettings size={40} />
         </button>
       </div>
       <div className="flex h-60 flex-col items-center justify-center border-b border-slate-400">

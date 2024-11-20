@@ -3,6 +3,9 @@ import api from "@/app/util/api";
 import { useContext, useEffect, useState } from "react";
 import { ExploreDataContext } from "../../page";
 
+import { TbUserPlus } from "react-icons/tb";
+import { TbUserCheck } from "react-icons/tb";
+
 export default function JoinButton({ eventId }) {
   const profileData = useContext(ProfileContext);
   const exploreData = useContext(ExploreDataContext);
@@ -49,11 +52,8 @@ export default function JoinButton({ eventId }) {
   };
   return (
     <div>
-      <button
-        className="rounded-md bg-green-600 px-3 py-1 text-white"
-        onClick={() => joinEvent()}
-      >
-        {joined ? "Joined" : "Join"}
+      <button className="rounded-md" onClick={() => joinEvent()}>
+        {joined ? <TbUserCheck size={26} /> : <TbUserPlus size={26} />}
       </button>
     </div>
   );

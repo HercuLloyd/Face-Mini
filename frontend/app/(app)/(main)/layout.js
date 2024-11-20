@@ -1,12 +1,20 @@
 "use client";
 import AuthContext from "@/app/context/AuthContext";
 import PrivateRoute from "@/app/util/PrivateRoute";
-import Sidebar from "@/app/util/components/sidebar/sidebar";
+import NavBar from "@/app/util/components/navbar/navbar";
 
 export default function RootLayout({ children }) {
   return (
-    <div className="flex w-full">
-      <PrivateRoute children={children}></PrivateRoute>
+    <div className="h-full w-full">
+      <PrivateRoute children={<Content children={children} />}></PrivateRoute>
+    </div>
+  );
+}
+function Content({ children }) {
+  return (
+    <div className="flex h-full w-full flex-row-reverse">
+      {children}
+      <NavBar />
     </div>
   );
 }

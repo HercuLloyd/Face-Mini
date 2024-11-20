@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import JoinButton from "./joinbutton";
 import api from "@/app/util/api";
 import { ExploreDataContext } from "../../page";
+import { TbUser } from "react-icons/tb";
 
 export default function EventFooter({ eventId }) {
   const exploreData = useContext(ExploreDataContext);
@@ -21,7 +22,11 @@ export default function EventFooter({ eventId }) {
   };
   return (
     <div className="flex items-center justify-between">
-      <p className="text-lg font-medium">{attendanceCounter}</p>
+      <div className="flex">
+        <TbUser size={24} />
+        <p className="text-lg font-medium">{attendanceCounter}</p>
+      </div>
+
       <JoinButton eventId={eventId} />
     </div>
   );

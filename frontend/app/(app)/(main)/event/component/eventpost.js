@@ -8,6 +8,8 @@ import Modal from "@/app/util/components/modal";
 import { EventDataContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
+import { TbDotsVertical } from "react-icons/tb";
+
 export default function EventPost({
   eventPostId,
   type,
@@ -87,12 +89,12 @@ export default function EventPost({
         </div>
         <div className="">
           <button
-            className={`flex h-10 w-10 items-center justify-center rounded-[3px] bg-green-400 pt-2 text-3xl ${
+            className={`flex items-center justify-center rounded-[3px] bg-green-400 p-2 text-3xl ${
               yourProfileData.id == userProfile ? "" : "hidden"
             }`}
             onClick={() => setShowDropDown(!showDropDown)}
           >
-            *
+            <TbDotsVertical size={22} />
           </button>
           <EditDropDown
             type={type}
