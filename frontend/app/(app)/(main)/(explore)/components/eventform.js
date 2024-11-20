@@ -28,7 +28,7 @@ export default function EventForm({ onClose }) {
   const EventPostSchema = Yup.object().shape({
     event_title: Yup.string().min(6, "Must be at least 6 characters long"),
     location: Yup.string(),
-    time: Yup.string().required("Required"),
+    time: Yup.string(),
     event_description: Yup.string()
       .required("Required")
       .max(300, "Must be 300 characters or less"),
