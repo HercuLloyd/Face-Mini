@@ -1,11 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useContext, useEffect, useState } from "react";
-import api from "@/app/util/api";
+import * as Yup from "yup";
 import axios from "axios";
 
 import { EventDataContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 import { BASE_URL } from "@/app/util/constants";
+import ErrorStyling from "@/app/util/components/forms/errorstyling";
 
 export default function MemoriesForm({ eventId }) {
   const eventData = useContext(EventDataContext);
@@ -31,6 +32,7 @@ export default function MemoriesForm({ eventId }) {
         initialValues={{
           message: "",
         }}
+        validateOnChange={false}
         enableReinitialize={true}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
@@ -87,6 +89,11 @@ export default function MemoriesForm({ eventId }) {
           <label htmlFor="message" className="text-medium font-medium">
             Description
           </label>
+
+          <ErrorStyling>
+            <ErrorMessage name="message" />
+          </ErrorStyling>
+
           <Field
             id="message"
             name="message"
@@ -94,7 +101,6 @@ export default function MemoriesForm({ eventId }) {
             type="text"
             className="h-10 w-80 rounded-sm bg-gray-200 px-2"
           />
-          <ErrorMessage name="message" />
 
           <button
             type="submit"

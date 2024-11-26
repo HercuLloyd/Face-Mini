@@ -14,6 +14,7 @@ export default function UpcomingEvent({
   const router = useRouter();
 
   function date(value) {
+    if (value === null) return "";
     const f = new Intl.DateTimeFormat("en-us", {
       dateStyle: "long",
       timeStyle: "short",

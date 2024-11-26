@@ -145,7 +145,6 @@ export default function EventForm({ onClose }) {
             >
               Description
             </label>
-            <h1>0/300</h1>
             <ErrorStyling>
               <ErrorMessage name="event_description" />
             </ErrorStyling>

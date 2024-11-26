@@ -113,7 +113,7 @@ export default function SettingsForm({ onClose }) {
             name="bio"
             type="text"
             as="textarea"
-            className="h-20 w-80 rounded-sm bg-gray-200 p-2"
+            className="h-20 w-80 resize-none rounded-sm bg-gray-200 p-2"
           />
           <ErrorMessage name="bio" />
 

@@ -39,9 +39,9 @@ export default function Profile({ params }) {
     <ProfilePageContext.Provider
       value={{ profileData, setProfileData, getProfile }}
     >
-      <div className="flex w-full">
+      <div className="flex h-full w-full">
         <MainPanel>
-          <div className="flex w-full flex-col">
+          <div className="flex h-full w-full flex-col">
             <ProfileHeader
               settingsButton={() => setSettingsModal(true)}
               username={profileData.display_name}

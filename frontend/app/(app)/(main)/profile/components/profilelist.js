@@ -1,7 +1,7 @@
 import PostListContainer from "@/app/util/components/containers/postlistcontainer";
 import ProfilePost from "./profilepost";
 import DeleteProfileEventModal from "./deleteprofileeventmodal";
-import ProfileHeader from "./profileheader";
+import NoEvents from "./noevent";
 import { ProfilePageContext } from "../[id]/page";
 import { useContext, useEffect, useState } from "react";
 import api from "@/app/util/api";
@@ -64,10 +64,13 @@ export default function ProfileList() {
       />
     ));
   };
-
+  console.log(memoriesData);
   return (
-    <div>
-      <PostListContainer>{profileMemoriesList()}</PostListContainer>
+    <div className="w-full">
+      <PostListContainer>
+        <NoEvents empty={memoriesData.length === 0 || undefined} />
+        {profileMemoriesList()}
+      </PostListContainer>
       <DeleteProfileEventModal
         open={deleteModal}
         onClose={() => setDeleteModal(false)}

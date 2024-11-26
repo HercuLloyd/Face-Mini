@@ -38,8 +38,8 @@ export default function ProfileHeader({
     }
   };
   return (
-    <div>
-      <div className="h-fill flex items-center justify-end pt-4">
+    <div className={`${profileData.id === pageId ? "" : "pt-14"}`}>
+      <div className="flex items-center justify-end pt-2">
         <button
           className={`h-min rounded-md p-2 hover:bg-gray-200 ${profileData.id == pageId ? "" : "hidden"}`}
           onClick={settingsButton}
@@ -47,7 +47,7 @@ export default function ProfileHeader({
           <TbSettings size={40} />
         </button>
       </div>
-      <div className="flex h-60 flex-col items-center justify-center border-b border-slate-400">
+      <div className="flex h-40 flex-col items-center justify-center border-b border-slate-400">
         <div className={`flex w-96 gap-2`}>
           <img
             src={profileDataContext.profileData.profile_picture}

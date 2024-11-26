@@ -29,12 +29,13 @@ export default function UpcomingList({ profileId }) {
       eventId={item.event}
     />
   ));
-
+  //get all events that have yet to occur or have no date on them
   const formatList = (list) => {
     const now = new Date();
     //remove events before current date
     const oldEventsRemovedList = list
       .map((item) => {
+        if (item.time === null) return item;
         const eventTime = new Date(item.time);
         if (eventTime > now) return item;
       })
@@ -49,14 +50,26 @@ export default function UpcomingList({ profileId }) {
       if (chronologicalList.length < 3) return chronologicalList.length;
       return 3;
     };
-    list = chronologicalList.slice(0, listLength());
-    console.log(list);
-    return list;
+    const slicedList = chronologicalList.slice(0, listLength());
+
+    //send events with no time to bottom of list
+    const nullBottom = slicedList.map((item) => {
+      if (item.time === null) {
+        slicedList.push(slicedList.shift());
+      }
+
+      //new list
+      //if null add to this new list and remove from sliced
+      //then null list back to sliced
+    });
+    return slicedList;
   };
 
   console.log(upcomingList.length === 0);
   return (
-    <div className="flex flex-col gap-2">
+    <div
+      className={`flex flex-col gap-2 pb-4 ${upcoming.length === 0 ? "" : "border-b-1 border-slate-400"}`}
+    >
       <h1
         className={`${upcomingList.length === 0 ? "hidden" : "flex w-96 text-lg font-medium"}`}
       >

@@ -3,6 +3,7 @@ import Post from "./post";
 import { useContext, useEffect, useState } from "react";
 import api from "@/app/util/api";
 import { ExploreDataContext } from "../page";
+import NoEvents from "../../profile/components/noevent";
 export default function PostList() {
   const [events, setEvents] = useState([]);
 
@@ -39,6 +40,7 @@ export default function PostList() {
     ));
     return list.reverse();
   };
+  console.log(exploreData.eventList);
   return (
     <div className="">
       <PostListContainer>{exploreList()}</PostListContainer>

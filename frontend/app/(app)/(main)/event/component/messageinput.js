@@ -1,14 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useContext, useState } from "react";
-import api from "@/app/util/api";
-import { jwtDecode } from "jwt-decode";
-import { ACCESS_TOKEN, BASE_URL } from "@/app/util/constants";
+import * as Yup from "yup";
+import { BASE_URL } from "@/app/util/constants";
+
 import axios from "axios";
 import { EventDataContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
 import { TbPhotoPlus } from "react-icons/tb";
 import { TbSend2 } from "react-icons/tb";
+import ErrorStyling from "@/app/util/components/forms/errorstyling";
 
 export default function MessageInput({ tab, event }) {
   const eventData = useContext(EventDataContext);
@@ -28,6 +29,10 @@ export default function MessageInput({ tab, event }) {
   const config = { headers: { "Content-Type": "multipart/form-data" } };
   const axiosURL = `${BASE_URL}/event/create-event-post/`;
 
+  const MessageSchema = Yup.object().shape({
+    message: Yup.string().min(4, "Message must be at least 4 characters long"),
+  });
+
   return (
     <div
       className={`fixed bottom-[48px] flex justify-center sm:bottom-0 ${
@@ -38,6 +43,8 @@ export default function MessageInput({ tab, event }) {
         initialValues={{
           message: "",
         }}
+        validateOnChange={false}
+        validationSchema={MessageSchema}
         enableReinitialize={true}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
@@ -75,6 +82,10 @@ export default function MessageInput({ tab, event }) {
             />
           </div>
 
+          <ErrorStyling>
+            <ErrorMessage name="message" />
+          </ErrorStyling>
+
           <div className="flex w-96 items-center justify-center gap-2 rounded-md border-2 border-slate-500 bg-white p-1">
             <Field
               id="message"
@@ -83,7 +94,6 @@ export default function MessageInput({ tab, event }) {
               type="text"
               className="h-full w-80 rounded-sm px-2 outline-none"
             />
-            <ErrorMessage name="message" />
 
             <label
               htmlFor="coverImage"

@@ -19,8 +19,6 @@ export default function BottomBar() {
         icon={<TbUserFilled size={30} />}
         route={`/profile/${userData.id}/`}
       />
-
-      {/* <BottomBarButton name="PROFILE" route={`/profile/${profileData.id}/`} /> */}
     </div>
   );
 }

@@ -25,7 +25,7 @@ class Event(models.Model):
 # Post made inside of the event
 class EventPost(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_user')
-    message = models.CharField(max_length=200)
+    message = models.CharField(max_length=350)
     image = models.ImageField(null=True, blank=True, upload_to=upload_to)
     created_at = models.DateTimeField(auto_now_add=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='event', null=True, blank=True)
@@ -40,7 +40,7 @@ class EventPost(models.Model):
 # Post made inside of the event to be saved with event
 class EventMemories(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="user_created")
-    message = models.CharField(max_length=50)
+    message = models.CharField(null=True, blank=True, max_length=50)
     image = models.ImageField(null=True, blank=True, upload_to=upload_to)
     created_at = models.DateTimeField(auto_now_add=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="memories", null=True, blank=True)
