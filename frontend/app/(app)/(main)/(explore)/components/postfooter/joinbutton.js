@@ -3,8 +3,7 @@ import api from "@/app/util/api";
 import { useContext, useEffect, useState } from "react";
 import { ExploreDataContext } from "../../page";
 
-import { TbUserPlus } from "react-icons/tb";
-import { TbUserCheck } from "react-icons/tb";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export default function JoinButton({ eventId }) {
   const profileData = useContext(ProfileContext);
@@ -53,7 +52,11 @@ export default function JoinButton({ eventId }) {
   return (
     <div>
       <button className="rounded-md" onClick={() => joinEvent()}>
-        {joined ? <TbUserCheck size={26} /> : <TbUserPlus size={26} />}
+        {joined ? (
+          <PersonAddIcon color="primary" />
+        ) : (
+          <PersonAddIcon color="primary" />
+        )}
       </button>
     </div>
   );

@@ -10,8 +10,7 @@ import BasicFieldHeader from "@/app/util/components/forms/basicfieldheader";
 import ErrorStyling from "@/app/util/components/forms/errorstyling";
 import { ExploreDataContext } from "../page";
 import { ProfileContext } from "@/app/context/AuthContext";
-
-import { TbPhotoPlus } from "react-icons/tb";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export default function UpdateEventForm({ onClose, eventId }) {
   const exploreData = useContext(ExploreDataContext);
@@ -94,7 +93,7 @@ export default function UpdateEventForm({ onClose, eventId }) {
               htmlFor="coverImage"
               className="flex h-10 w-10 items-center justify-center rounded-sm bg-green-600 text-xl text-white"
             >
-              <TbPhotoPlus />
+              <PersonAddIcon color="primary" />
             </label>
             <Field
               id="coverImage"

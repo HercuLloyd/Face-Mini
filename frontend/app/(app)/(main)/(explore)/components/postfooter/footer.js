@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import JoinButton from "./joinbutton";
 import api from "@/app/util/api";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { ExploreDataContext } from "../../page";
-import { TbUser } from "react-icons/tb";
-
 export default function EventFooter({ eventId }) {
   const exploreData = useContext(ExploreDataContext);
   const [attendanceCounter, setAttendanceCounter] = useState();
@@ -23,7 +22,7 @@ export default function EventFooter({ eventId }) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex">
-        <TbUser size={24} />
+        <PersonAddIcon color="primary" />
         <p className="text-lg font-medium">{attendanceCounter}</p>
       </div>
 

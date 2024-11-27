@@ -7,8 +7,7 @@ import axios from "axios";
 import { EventDataContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
-import { TbPhotoPlus } from "react-icons/tb";
-import { TbSend2 } from "react-icons/tb";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ErrorStyling from "@/app/util/components/forms/errorstyling";
 
 export default function MessageInput({ tab, event }) {
@@ -99,7 +98,7 @@ export default function MessageInput({ tab, event }) {
               htmlFor="coverImage"
               className={`flex shrink-0 items-center justify-center rounded-md p-2 text-xl hover:bg-gray-300`}
             >
-              <TbPhotoPlus size={26} />
+              <PersonAddIcon color="primary" />
             </label>
             <Field
               id="coverImage"
@@ -114,7 +113,7 @@ export default function MessageInput({ tab, event }) {
               type="submit"
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-green-600 p-2 text-center text-xl text-white"
             >
-              <TbSend2 />
+              <PersonAddIcon color="primary" />
             </button>
           </div>
         </Form>

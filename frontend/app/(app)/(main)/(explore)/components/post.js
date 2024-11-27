@@ -8,7 +8,7 @@ import DeleteConfirmationModal from "./deleteconfirmationmodal";
 import { ProfileContext } from "@/app/context/AuthContext";
 import EventFooter from "./postfooter/footer";
 
-import { TbDotsVertical } from "react-icons/tb";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export default function Post({
   id,
@@ -85,7 +85,7 @@ export default function Post({
             className={`ml-2 flex items-center justify-center rounded-[3px] bg-green-400 p-2 text-3xl ${host == profileData.id ? "" : "hidden"}`}
             onClick={() => setShowDropDown(!showDropDown)}
           >
-            <TbDotsVertical size={22} />
+            <PersonAddIcon color="primary" />
           </button>
           <PostDropDown
             visible={showDropDown}

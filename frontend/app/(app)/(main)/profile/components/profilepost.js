@@ -7,7 +7,7 @@ import api from "@/app/util/api";
 import { ProfilePageContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
-import { TbDotsVertical } from "react-icons/tb";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export default function ProfilePost({
   profilePic,
@@ -72,7 +72,7 @@ export default function ProfilePost({
               setDropDown(!dropDown);
             }}
           >
-            <TbDotsVertical size={22} />
+            <PersonAddIcon color="primary" />
           </button>
           <ProfilePostDropDown
             visible={dropDown}

@@ -8,7 +8,7 @@ import Modal from "@/app/util/components/modal";
 import { EventDataContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
-import { TbDotsVertical } from "react-icons/tb";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export default function EventPost({
   eventPostId,
@@ -94,7 +94,7 @@ export default function EventPost({
             }`}
             onClick={() => setShowDropDown(!showDropDown)}
           >
-            <TbDotsVertical size={22} />
+            <PersonAddIcon color="primary" />
           </button>
           <EditDropDown
             type={type}

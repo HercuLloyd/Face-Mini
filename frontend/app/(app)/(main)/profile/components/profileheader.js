@@ -4,7 +4,7 @@ import { ACCESS_TOKEN } from "@/app/util/constants";
 import { useContext, useEffect, useState } from "react";
 import { ProfilePageContext } from "../[id]/page";
 
-import { TbSettings } from "react-icons/tb";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export default function ProfileHeader({
   settingsButton,
@@ -44,7 +44,7 @@ export default function ProfileHeader({
           className={`h-min rounded-md p-2 hover:bg-gray-200 ${profileData.id == pageId ? "" : "hidden"}`}
           onClick={settingsButton}
         >
-          <TbSettings size={40} />
+          <PersonAddIcon color="primary" />
         </button>
       </div>
       <div className="flex h-40 flex-col items-center justify-center border-b border-slate-400">

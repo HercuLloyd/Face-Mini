@@ -8,8 +8,6 @@ import { ExploreDataContext } from "../page";
 import { ProfileContext } from "@/app/context/AuthContext";
 import { BASE_URL } from "@/app/util/constants";
 
-import { TbPhotoPlus } from "react-icons/tb";
-
 export default function EventForm({ onClose }) {
   const exploreData = useContext(ExploreDataContext);
   const profileData = useContext(ProfileContext);
@@ -77,9 +75,9 @@ export default function EventForm({ onClose }) {
             <h1 className="mb-2 text-2xl font-medium">Create Event</h1>
             <label
               htmlFor="coverImage"
-              className="flex h-10 w-10 items-center justify-center rounded-sm bg-green-600 text-xl text-white"
+              className="flex h-10 w-10 items-center justify-center rounded-sm bg-green-600 pt-2 text-2xl text-white"
             >
-              <TbPhotoPlus />
+              *
             </label>
             <Field
               id="coverImage"
