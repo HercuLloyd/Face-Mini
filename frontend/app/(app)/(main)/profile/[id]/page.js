@@ -8,6 +8,7 @@ import api from "@/app/util/api";
 import Upcoming from "../components/upcoming/upcoming";
 import MainPanel from "@/app/util/components/containers/mainpanel";
 import SecondaryPanel from "@/app/util/components/containers/secondarypanel";
+import { Main } from "next/document";
 
 export const ProfilePageContext = createContext(null);
 
@@ -39,26 +40,22 @@ export default function Profile({ params }) {
     <ProfilePageContext.Provider
       value={{ profileData, setProfileData, getProfile }}
     >
-      <div className="flex h-full w-full">
+      <div className="flex w-full">
         <MainPanel>
-          <div className="flex h-full w-full flex-col">
-            <ProfileHeader
-              settingsButton={() => setSettingsModal(true)}
-              username={profileData.display_name}
-              bio={profileData.bio}
-              profilePic={profileData.profile_picture}
-              pageId={params.id}
-            />
-            <Upcoming profileId={params.id} />
-            <ProfileList />
-            <Modal open={settingsModal} onClose={() => setSettingsModal(false)}>
-              <SettingsForm onClose={() => setSettingsModal(false)} />
-            </Modal>
-          </div>
+          <ProfileHeader
+            settingsButton={() => setSettingsModal(true)}
+            username={profileData.display_name}
+            bio={profileData.bio}
+            profilePic={profileData.profile_picture}
+            pageId={params.id}
+          />
+          <Upcoming profileId={params.id} />
+          <ProfileList />
+          <Modal open={settingsModal} onClose={() => setSettingsModal(false)}>
+            <SettingsForm onClose={() => setSettingsModal(false)} />
+          </Modal>
         </MainPanel>
-        {/* <SecondaryPanel>
-          <div className="w-96"></div>
-        </SecondaryPanel> */}
+        <SecondaryPanel></SecondaryPanel>
       </div>
     </ProfilePageContext.Provider>
   );

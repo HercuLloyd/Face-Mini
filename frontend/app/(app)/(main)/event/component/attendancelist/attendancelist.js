@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export default function AttendanceList() {
   const eventData = useContext(EventDataContext);
-  console.log(eventData.attendance);
+  //console.log(eventData.attendance);
 
   const attendancelist = eventData.attendance.map((user, key) => (
     <Attendee

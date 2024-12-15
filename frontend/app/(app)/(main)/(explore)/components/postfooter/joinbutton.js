@@ -3,7 +3,8 @@ import api from "@/app/util/api";
 import { useContext, useEffect, useState } from "react";
 import { ExploreDataContext } from "../../page";
 
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 
 export default function JoinButton({ eventId }) {
   const profileData = useContext(ProfileContext);
@@ -53,9 +54,9 @@ export default function JoinButton({ eventId }) {
     <div>
       <button className="rounded-md" onClick={() => joinEvent()}>
         {joined ? (
-          <PersonAddIcon color="primary" />
+          <PersonRemoveIcon sx={{ color: "#1BB12C" }} fontSize="large" />
         ) : (
-          <PersonAddIcon color="primary" />
+          <PersonAddAlt1Icon sx={{ color: "#1BB12C" }} fontSize="large" />
         )}
       </button>
     </div>

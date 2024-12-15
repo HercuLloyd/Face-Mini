@@ -25,7 +25,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r-2 border-stone-400 ps-6 pt-4 sm:flex">
+    <div className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r-2 border-stone-400 ps-6 pt-4 lg:flex">
       <h1 className="mb-10 ml-2 text-2xl font-semibold text-green-600">
         FACE 2 FACE
       </h1>

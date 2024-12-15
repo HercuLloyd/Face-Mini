@@ -10,7 +10,8 @@ import BasicFieldHeader from "@/app/util/components/forms/basicfieldheader";
 import ErrorStyling from "@/app/util/components/forms/errorstyling";
 import { ExploreDataContext } from "../page";
 import { ProfileContext } from "@/app/context/AuthContext";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
+
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 
 export default function UpdateEventForm({ onClose, eventId }) {
   const exploreData = useContext(ExploreDataContext);
@@ -91,9 +92,9 @@ export default function UpdateEventForm({ onClose, eventId }) {
             <h1 className="mb-2 text-2xl font-medium">Edit Event</h1>
             <label
               htmlFor="coverImage"
-              className="flex h-10 w-10 items-center justify-center rounded-sm bg-green-600 text-xl text-white"
+              className="flex h-10 w-10 items-center justify-center rounded-sm text-xl text-white"
             >
-              <PersonAddIcon color="primary" />
+              <InsertPhotoIcon sx={{ color: "#1BB12C" }} fontSize="large" />
             </label>
             <Field
               id="coverImage"

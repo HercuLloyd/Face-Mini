@@ -8,7 +8,6 @@ export default function UpcomingList({ profileId }) {
 
   useEffect(() => {
     getList();
-    console.log(upcomingList);
   }, []);
   const getList = async () => {
     await api
@@ -65,13 +64,12 @@ export default function UpcomingList({ profileId }) {
     return slicedList;
   };
 
-  console.log(upcomingList.length === 0);
   return (
     <div
-      className={`flex flex-col gap-2 pb-4 ${upcoming.length === 0 ? "" : "border-b-1 border-slate-400"}`}
+      className={`flex w-full flex-col gap-2 ${upcoming.length === 0 ? "" : "border-b border-slate-400 pb-4"}`}
     >
       <h1
-        className={`${upcomingList.length === 0 ? "hidden" : "flex w-96 text-lg font-medium"}`}
+        className={`${upcomingList.length === 0 ? "hidden" : "flex text-lg font-medium"}`}
       >
         Upcoming
       </h1>

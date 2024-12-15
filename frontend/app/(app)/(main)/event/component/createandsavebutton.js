@@ -12,7 +12,6 @@ export default function CreateAndSaveButton({
   const [eventData, setEventData] = useState([]);
   const [saveButton, setSaveButton] = useState(false);
   const currentDate = new Date();
-  const eventDate = new Date(eventData.time);
 
   const yourProfileData = useContext(ProfileContext);
   const config = { headers: { "Content-Type": "multipart/form-data" } };
@@ -22,7 +21,12 @@ export default function CreateAndSaveButton({
   useEffect(() => {
     getEvent();
   }, []);
-  // take event id get event and the location and compare it to the current date
+
+  //return date or null if empty
+  const eventDate = () => {
+    if (eventData !== null) return new Date(eventData.time);
+    else return null;
+  };
 
   const getEvent = () => {
     api
@@ -39,16 +43,8 @@ export default function CreateAndSaveButton({
     );
   };
 
-  //Get Profile Information
-
-  //check if event date is past current date
-  //if not show create button
-  //if so show save button
-
+  //check if you event already saved
   const savedEventCheck = async () => {
-    //call for list of profile memories
-    //check if this event is already saved in memories
-    //if so savebutton = true
     if (yourProfileData.id != undefined && saveButton == false) {
       let list;
       await api
@@ -63,13 +59,12 @@ export default function CreateAndSaveButton({
           break;
         }
       }
-      console.log(list);
     }
   };
 
   const createAndSaveButton = () => {
     savedEventCheck();
-    if (eventDate > currentDate)
+    if (eventDate() > currentDate || eventDate().getTime() === 0)
       return (
         <button
           className={`rounded-md bg-green-600 px-2 py-2 text-white disabled:bg-slate-400`}

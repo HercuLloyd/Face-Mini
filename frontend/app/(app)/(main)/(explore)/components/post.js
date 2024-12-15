@@ -8,7 +8,7 @@ import DeleteConfirmationModal from "./deleteconfirmationmodal";
 import { ProfileContext } from "@/app/context/AuthContext";
 import EventFooter from "./postfooter/footer";
 
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function Post({
   id,
@@ -62,7 +62,7 @@ export default function Post({
   };
 
   return (
-    <div className="flex w-96 flex-col gap-2 pt-4">
+    <div className="flex w-full flex-col gap-2 pt-4 sm:w-96">
       <div className="flex items-center justify-between bg-[#EEFDEE] p-2">
         <div className="flex w-full items-center gap-2">
           <img
@@ -85,7 +85,7 @@ export default function Post({
             className={`ml-2 flex items-center justify-center rounded-[3px] bg-green-400 p-2 text-3xl ${host == profileData.id ? "" : "hidden"}`}
             onClick={() => setShowDropDown(!showDropDown)}
           >
-            <PersonAddIcon color="primary" />
+            <MoreVertIcon sx={{ color: "black" }} />
           </button>
           <PostDropDown
             visible={showDropDown}
@@ -106,12 +106,12 @@ export default function Post({
       </div>
 
       <div
-        className={`flex h-96 w-96 cursor-default flex-col justify-center rounded-md bg-slate-400 text-center ${
+        className={`flex w-full cursor-default flex-col justify-center rounded-md bg-slate-400 text-center sm:h-96 sm:w-96 ${
           image ? "" : "hidden"
         }`}
       >
         <img
-          className="h-full w-full rounded-sm object-cover"
+          className="aspect-square w-full rounded-sm object-cover"
           src={image}
           onClick={() => router.push(`/event/${id}/`)}
         />

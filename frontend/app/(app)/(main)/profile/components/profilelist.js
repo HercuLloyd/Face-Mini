@@ -43,7 +43,6 @@ export default function ProfileList() {
     //remove element from local list and rerender
     const newList = memoriesData.filter((post) => post.id != seletedPost);
     setMemoriesData(newList);
-    console.log(newList);
   };
 
   const profileMemoriesList = () => {
@@ -64,12 +63,11 @@ export default function ProfileList() {
       />
     ));
   };
-  console.log(memoriesData);
   return (
     <div className="w-full">
       <PostListContainer>
-        <NoEvents empty={memoriesData.length === 0 || undefined} />
         {profileMemoriesList()}
+        <NoEvents empty={memoriesData.length === 0 || undefined} />
       </PostListContainer>
       <DeleteProfileEventModal
         open={deleteModal}

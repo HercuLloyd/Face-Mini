@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-vgnb$031d+&k^hz75x5i#xnbg)0*w17u&k*n55u##h6$%5czu5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'facemini.life']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'facemini.life', '10.0.0.182']
 
 
 # Application definition
@@ -178,4 +178,35 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
-# AUTH_USER_MODEL = 'user.User'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.FileHandler',
+            'filename': str(BASE_DIR)+ "/../logfile.log",
+            'formatter': 'verbose',
+        },
+    },
+    'root': { 
+        'level': 'INFO',
+        'handlers': ['console', 'logfile']
+    },
+    'formatters': {
+        'simple' : {
+            'format': '{asctime}:{levelname} {message}',
+            'style': '{'
+        },
+        'verbose': {
+            'format': '{asctime}:{levelname} - {name} {module}.py (line {lineno:d}). {message}',
+            'style': '{',
+        },
+    }
+} 
+

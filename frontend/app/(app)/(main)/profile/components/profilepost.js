@@ -7,7 +7,8 @@ import api from "@/app/util/api";
 import { ProfilePageContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 export default function ProfilePost({
   profilePic,
@@ -38,19 +39,20 @@ export default function ProfilePost({
     setImageCounter(0);
   }, [image]);
 
+  console.log(memoryImages.length);
   const getMemoryData = async () => {
     await api
       .get(`/user/profile-memories/get/${memoryId}/`)
       .then((res) => res.data)
       .then((data) => {
         const imageList = data.map((memory) => memory.image);
-        imageList.unshift(image);
+        if (image != null || undefined) imageList.unshift(image);
         setMemoryImages(imageList.filter(Boolean));
       });
   };
 
   return (
-    <div className="flex w-96 flex-col gap-1 pt-4">
+    <div className="flex w-full flex-col gap-1 pt-4 sm:w-96">
       <div className="flex items-center justify-between bg-[#EEFDEE] p-2">
         <button>
           <div className="flex items-center gap-2" onClick={() => {}}>
@@ -72,7 +74,7 @@ export default function ProfilePost({
               setDropDown(!dropDown);
             }}
           >
-            <PersonAddIcon color="primary" />
+            <MoreVertIcon sx={{ color: "black" }} />
           </button>
           <ProfilePostDropDown
             visible={dropDown}
@@ -88,8 +90,8 @@ export default function ProfilePost({
       <div className="relative">
         <img
           src={memoryImages[imageCounter]}
-          className={`flex h-96 w-96 flex-col justify-center rounded-md bg-slate-400 object-cover text-center ${
-            image ? "" : "hidden"
+          className={`flex aspect-square flex-col justify-center rounded-md bg-slate-400 object-cover text-center sm:h-96 sm:w-96 ${
+            memoryImages.length !== 0 ? "" : "hidden"
           }`}
         />
         <button

@@ -7,6 +7,7 @@ import ErrorStyling from "@/app/util/components/forms/errorstyling";
 import { ExploreDataContext } from "../page";
 import { ProfileContext } from "@/app/context/AuthContext";
 import { BASE_URL } from "@/app/util/constants";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 
 export default function EventForm({ onClose }) {
   const exploreData = useContext(ExploreDataContext);
@@ -75,9 +76,9 @@ export default function EventForm({ onClose }) {
             <h1 className="mb-2 text-2xl font-medium">Create Event</h1>
             <label
               htmlFor="coverImage"
-              className="flex h-10 w-10 items-center justify-center rounded-sm bg-green-600 pt-2 text-2xl text-white"
+              className="flex h-10 w-10 items-center justify-center rounded-sm text-2xl text-white"
             >
-              *
+              <InsertPhotoIcon sx={{ color: "#1BB12C" }} fontSize="large" />
             </label>
             <Field
               id="coverImage"

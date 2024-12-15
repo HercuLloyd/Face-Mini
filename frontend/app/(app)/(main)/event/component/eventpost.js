@@ -8,7 +8,7 @@ import Modal from "@/app/util/components/modal";
 import { EventDataContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function EventPost({
   eventPostId,
@@ -74,7 +74,7 @@ export default function EventPost({
     eventData.setUpdateEventPostModal(true);
   };
   return (
-    <div className="flex w-96 flex-col gap-1 pt-4">
+    <div className="flex w-full flex-col gap-1 pt-4 sm:w-96">
       <div className="flex items-center justify-between bg-[#EEFDEE] p-2">
         <div className="flex items-center gap-2 bg-[#EEFDEE]">
           <img
@@ -94,7 +94,7 @@ export default function EventPost({
             }`}
             onClick={() => setShowDropDown(!showDropDown)}
           >
-            <PersonAddIcon color="primary" />
+            <MoreVertIcon sx={{ color: "black" }} />
           </button>
           <EditDropDown
             type={type}
@@ -108,7 +108,7 @@ export default function EventPost({
 
       <h1 className="text-sm">{text}</h1>
       <img
-        className={`flex h-96 w-96 flex-col justify-center rounded-md bg-slate-400 object-cover text-center ${
+        className={`flex aspect-square w-full flex-col justify-center rounded-md bg-slate-400 object-cover text-center ${
           image ? "" : "hidden"
         }`}
         src={image}

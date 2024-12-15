@@ -34,7 +34,7 @@ export default function EventPostList({ id }) {
     />
   ));
   return (
-    <div className="pb-14">
+    <div className="pb-[72px]">
       <PostListContainer>{eventPostList}</PostListContainer>
     </div>
   );

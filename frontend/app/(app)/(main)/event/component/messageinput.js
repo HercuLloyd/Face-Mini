@@ -7,8 +7,11 @@ import axios from "axios";
 import { EventDataContext } from "../[id]/page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ErrorStyling from "@/app/util/components/forms/errorstyling";
+
+import SendIcon from "@mui/icons-material/Send";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import { Send } from "@mui/icons-material";
 
 export default function MessageInput({ tab, event }) {
   const eventData = useContext(EventDataContext);
@@ -34,7 +37,7 @@ export default function MessageInput({ tab, event }) {
 
   return (
     <div
-      className={`fixed bottom-[48px] flex justify-center sm:bottom-0 ${
+      className={`fixed bottom-[48px] flex w-[calc(100%-16px)] justify-center bg-white md:bottom-0 ${
         tab != "chat" ? "hidden" : ""
       }`}
     >
@@ -69,11 +72,9 @@ export default function MessageInput({ tab, event }) {
           setPostImage("");
         }}
       >
-        <Form className="h-full bg-white pb-1">
+        <Form className="h-full w-full pb-1 md:pb-4">
           <div
-            className={`flex w-full justify-end py-2 ${
-              previewImage == "" ? "hidden" : ""
-            }`}
+            className={`flex w-full py-2 ${previewImage == "" ? "hidden" : ""}`}
           >
             <img
               src={previewImage}
@@ -85,20 +86,20 @@ export default function MessageInput({ tab, event }) {
             <ErrorMessage name="message" />
           </ErrorStyling>
 
-          <div className="flex w-96 items-center justify-center gap-2 rounded-md border-2 border-slate-500 bg-white p-1">
+          <div className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-slate-500 bg-white p-1 sm:w-96">
             <Field
               id="message"
               name="message"
               autoComplete="off"
               type="text"
-              className="h-full w-80 rounded-sm px-2 outline-none"
+              className="h-full w-full rounded-sm px-1 outline-none"
             />
 
             <label
               htmlFor="coverImage"
-              className={`flex shrink-0 items-center justify-center rounded-md p-2 text-xl hover:bg-gray-300`}
+              className={`flex shrink-0 items-center justify-center rounded-md p-1 text-xl hover:bg-gray-300`}
             >
-              <PersonAddIcon color="primary" />
+              <InsertPhotoIcon sx={{ color: "#1BB12C" }} fontSize="large" />
             </label>
             <Field
               id="coverImage"
@@ -113,7 +114,7 @@ export default function MessageInput({ tab, event }) {
               type="submit"
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-green-600 p-2 text-center text-xl text-white"
             >
-              <PersonAddIcon color="primary" />
+              <Send color="white" fontSize="medium" />
             </button>
           </div>
         </Form>

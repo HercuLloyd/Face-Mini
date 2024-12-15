@@ -9,8 +9,8 @@ export default function EventHeader({
   eventId,
 }) {
   return (
-    <div className="sticky top-0 flex items-center justify-center">
-      <div className="h-20 w-96 border-b-2 border-stone-400 bg-white">
+    <div className="sticky top-0 flex w-full items-center justify-center">
+      <div className="h-20 w-full border-b-2 border-stone-400 bg-white sm:w-96">
         <h1 className="flex h-full items-center justify-between">
           <button
             className={`text-xl font-medium ${currentTab == "chat" ? "text-green-600" : ""}`}
