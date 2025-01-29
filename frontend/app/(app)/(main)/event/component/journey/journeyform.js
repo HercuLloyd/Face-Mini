@@ -4,102 +4,85 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import BasicFieldHeader from "@/app/util/components/forms/basicfieldheader";
 import ErrorStyling from "@/app/util/components/forms/errorstyling";
-import { ExploreDataContext } from "../page";
+
 import { ProfileContext } from "@/app/context/AuthContext";
 import { BASE_URL } from "@/app/util/constants";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 
-export default function EventForm({ onClose }) {
-  const exploreData = useContext(ExploreDataContext);
-  const profileData = useContext(ProfileContext);
+import { JourneyPageEnum, JourneyType } from "./journey";
+import { EventDataContext } from "../../[id]/page";
 
-  const [postImage, setPostImage] = useState("");
-
-  const handleChange = (e) => {
-    if ([e.target.name] == "coverImage") {
-      setPostImage(e.target.files[0]);
-    }
-  };
+export default function JourneyForm({ eventId, changePage }) {
+  const eventData = useContext(EventDataContext);
 
   const config = { headers: { "Content-Type": "multipart/form-data" } };
-  const URL = `${BASE_URL}/event/post/`;
+  const URL = `${BASE_URL}/event/journey/point/create/`;
 
-  const EventPostSchema = Yup.object().shape({
-    event_title: Yup.string().min(6, "Must be at least 6 characters long"),
-    location: Yup.string(),
-    time: Yup.string(),
-    event_description: Yup.string()
+  const JourneyPointSchema = Yup.object().shape({
+    title: Yup.string()
       .required("Required")
-      .max(300, "Must be 300 characters or less"),
+      .min(6, "Must be at least 6 characters long"),
+    location: Yup.string(),
+    start_date: Yup.string(),
+    end_date: Yup.string(),
   });
 
   return (
     <div>
       <Formik
         initialValues={{
-          event_title: "",
+          title: "",
           location: "",
-          time: "",
+          start_date: "",
+          end_date: "",
           event_description: "",
         }}
         validateOnChange={false}
         validateOnBlur={false}
-        validationSchema={EventPostSchema}
+        validationSchema={JourneyPointSchema}
         enableReinitialize={true}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
           try {
-            console.log(postImage);
             let formData = new FormData();
-            formData.append("host", profileData.id);
-            formData.append("event_title", values.event_title);
+            formData.append("event", eventId);
+            formData.append("type", JourneyType.POINT);
+            formData.append("title", values.title);
             formData.append("location", values.location);
-            formData.append("time", values.time);
-            formData.append("event_description", values.event_description);
-            formData.append("image", postImage);
+            formData.append("start_date", values.start_date);
+            formData.append("end_date", values.end_date);
+
+            console.log(eventId);
 
             await axios
               .post(URL, formData, config)
               .then((res) => {
-                onClose();
+                console.log(res.data);
               })
               .catch((err) => console.log(err));
           } catch (error) {
             alert(error);
           }
-          exploreData.getEventList();
+          eventData.getJourney();
+          changePage(JourneyPageEnum.LIST);
         }}
       >
         <Form className="flex flex-col gap-1">
           <div className="flex justify-between">
             <h1 className="mb-2 text-2xl font-medium">Create Event</h1>
-            <label
-              htmlFor="coverImage"
-              className="flex h-10 w-10 items-center justify-center rounded-sm text-2xl text-white"
-            >
-              <InsertPhotoIcon sx={{ color: "#1BB12C" }} fontSize="large" />
-            </label>
-            <Field
-              id="coverImage"
-              name="coverImage"
-              type="file"
-              className="hidden"
-              onChange={handleChange}
-            />
-            <ErrorMessage name="coverImage" />
           </div>
           <BasicFieldHeader>
-            <label htmlFor="event_title" className="text-medium font-medium">
+            <label htmlFor="title" className="text-medium font-medium">
               Title
             </label>
             <ErrorStyling>
-              <ErrorMessage name="event_title" />
+              <ErrorMessage name="title" />
             </ErrorStyling>
           </BasicFieldHeader>
 
           <Field
-            id="event_title"
-            name="event_title"
+            id="title"
+            name="title"
             type="text"
             className="h-10 w-80 rounded-sm bg-gray-200 px-2"
           />
@@ -121,47 +104,53 @@ export default function EventForm({ onClose }) {
           />
 
           <BasicFieldHeader>
-            <label htmlFor="time" className="text-medium font-medium">
-              Time & Date
+            <label htmlFor="start_date" className="text-medium font-medium">
+              Start Date
             </label>
             <ErrorStyling>
-              <ErrorMessage name="time" />
+              <ErrorMessage name="start_date" />
             </ErrorStyling>
           </BasicFieldHeader>
 
           <Field
-            id="time"
-            name="time"
+            id="start_date"
+            name="start_date"
             type="datetime-local"
             className="h-10 w-80 rounded-sm bg-gray-200 px-2"
           />
 
           <BasicFieldHeader>
-            <label
-              htmlFor="event_description"
-              className="text-medium font-medium"
-            >
-              Description
+            <label htmlFor="end_date" className="text-medium font-medium">
+              End Date
             </label>
             <ErrorStyling>
-              <ErrorMessage name="event_description" />
+              <ErrorMessage name="end_date" />
             </ErrorStyling>
           </BasicFieldHeader>
 
           <Field
-            id="event_description"
-            name="event_description"
-            type="text"
-            component="textarea"
-            className="h-24 w-80 resize-none rounded-sm bg-gray-200 p-2 px-2"
+            id="end_date"
+            name="end_date"
+            type="datetime-local"
+            className="h-10 w-80 rounded-sm bg-gray-200 px-2"
           />
-
-          <button
-            type="submit"
-            className="mt-3 h-10 w-80 rounded-md bg-green-600 p-2 text-center text-white"
-          >
-            Submit
-          </button>
+          <div className="flex gap-4">
+            <button
+              type="submit"
+              className="mt-3 h-10 w-1/2 rounded-md bg-green-600 p-2 text-center text-white"
+            >
+              Submit
+            </button>
+            <button
+              type="submit"
+              className="mt-3 h-10 w-1/2 rounded-md bg-green-600 p-2 text-center text-white"
+              onClick={() => {
+                changePage(JourneyPageEnum.LIST);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </Form>
       </Formik>
     </div>

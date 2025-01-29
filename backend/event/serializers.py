@@ -1,4 +1,4 @@
-from .models import Event, EventPost, EventMemories, ProfileMemories, EventUser
+from .models import Event, EventPost, EventMemories, ProfileMemories, EventUser, JourneyPoint, JourneyRoute
 from user.models import Profile
 from rest_framework import serializers
 
@@ -40,3 +40,14 @@ class EventUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventUser
         fields = ['id', 'user', 'event', 'extra_info', 'display_name', 'profile_picture', 'event_title', 'location', 'time',]
+
+class JourneyPointSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JourneyPoint
+        fields = ['id','event', 'type', 'title', 'location', 'start_date', 'end_date',]
+
+class JourneyRouteSerializer(serializers.ModelSerializer):
+    event = serializers.PrimaryKeyRelatedField(read_only=True)
+    class Meta:
+        model = JourneyRoute
+        fields = ['id', 'event', 'type', 'title', 'start_location', 'end_location', 'start_date', 'end_date',]

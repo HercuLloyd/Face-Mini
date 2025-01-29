@@ -10,6 +10,7 @@ import api from "@/app/util/api";
 import Attendance from "../component/attendancelist/attendance";
 import MainPanel from "@/app/util/components/containers/mainpanel";
 import SecondaryPanel from "@/app/util/components/containers/secondarypanel";
+import Journey from "../component/journey/journey";
 
 //context that has list of all event post and memories
 export const EventDataContext = createContext();
@@ -18,9 +19,12 @@ export default function Event({ params }) {
   const [filter, setFilter] = useState("chat");
   const [memoriesList, setMemoriesList] = useState([]);
   const [eventPostList, setEventPostList] = useState([]);
+  const [journey, setJourney] = useState([]);
 
   const [memoriesModal, setMemoriesModal] = useState(false);
   const [updateEventPostModal, setUpdateEventPostModal] = useState(false);
+  const [journeyModal, setJourneyModal] = useState(false);
+
   const [targetEvent, setTargetEvent] = useState(false);
 
   const [attendance, setAttendance] = useState([]);
@@ -28,6 +32,7 @@ export default function Event({ params }) {
   useEffect(() => {
     getLists();
     getAttendance();
+    getJourney();
   }, []);
 
   const getLists = () => {
@@ -54,6 +59,17 @@ export default function Event({ params }) {
         console.log(data);
       });
   };
+
+  const getJourney = () => {
+    api
+      .get(`/event/journey/list/${params.id}/`)
+      .then((res) => res.data)
+      .then((data) => {
+        setJourney(data);
+        console.log(data);
+      });
+  };
+
   const showList = () => {
     if (filter == "chat") return <EventPostList id={params.id} />;
     else if (filter == "memories") return <MemoriesList eventId={params.id} />;
@@ -64,8 +80,15 @@ export default function Event({ params }) {
       value={{
         memoriesList,
         setMemoriesList,
+
         eventPostList,
         setEventPostList,
+
+        journey,
+        setJourney,
+        getJourney,
+
+        setJourneyModal,
         getLists,
         setMemoriesModal,
         updateEventPostModal,
@@ -73,6 +96,7 @@ export default function Event({ params }) {
         targetEvent,
         setTargetEvent,
         attendance,
+        params,
       }}
     >
       <div className="flex w-full">
@@ -91,6 +115,9 @@ export default function Event({ params }) {
         </SecondaryPanel>
         <Modal open={memoriesModal} onClose={() => setMemoriesModal(false)}>
           <MemoriesForm eventId={params.id} />
+        </Modal>
+        <Modal open={journeyModal} onClose={() => setJourneyModal(false)}>
+          <Journey eventId={params.id} />
         </Modal>
       </div>
     </EventDataContext.Provider>

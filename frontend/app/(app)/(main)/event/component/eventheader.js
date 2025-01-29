@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CreateAndSaveButton from "./createandsavebutton";
 import api from "@/app/util/api";
+import { EventDataContext } from "../[id]/page";
+
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 export default function EventHeader({
   currentTab,
@@ -8,6 +11,8 @@ export default function EventHeader({
   createButton,
   eventId,
 }) {
+  const eventData = useContext(EventDataContext);
+
   return (
     <div className="sticky top-0 flex w-full items-center justify-center">
       <div className="h-20 w-full border-b-2 border-stone-400 bg-white sm:w-96">
@@ -24,7 +29,14 @@ export default function EventHeader({
           >
             MEMORIES
           </button>
-
+          <button
+            className="h-10 w-10 rounded-md bg-blue-500 p-1 text-white"
+            onClick={() => {
+              eventData.setJourneyModal(true);
+            }}
+          >
+            <CalendarTodayIcon />
+          </button>
           <CreateAndSaveButton
             createButton={createButton}
             eventId={eventId}

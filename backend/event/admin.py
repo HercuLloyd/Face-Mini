@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, EventPost, EventMemories, EventUser
+from .models import Event, EventPost, EventMemories, EventUser, JourneyPoint, JourneyRoute
 # Register your models here.
 
 
@@ -28,8 +28,14 @@ class EventPostAdmin(admin.ModelAdmin):
     model = EventPost
     readonly_fields = ('id',)
     fields = ['id', 'message', 'image', 'event']
+
+class JourneyPointAdmin(admin.ModelAdmin):
+    model = JourneyPoint
+    readonly_fields = ('id', 'type')
+    fields = ['id', 'event', 'type', 'title', 'location', 'start_date', 'end_date']
     
 # admin.site.unregister(EventPost)
 admin.site.register(EventPost, EventPostAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(EventMemories)
+admin.site.register(JourneyPoint, JourneyPointAdmin)

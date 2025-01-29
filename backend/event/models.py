@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import Profile
+from enum import Enum
 
 def upload_to(instance, filename):
     return 'posts/{filename}'.format(filename=filename)
@@ -82,6 +83,7 @@ class ProfileMemoriesComments(models.Model):
     message = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
 
+# Users attending event
 class EventUser(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="user_attending")
     event = models.ForeignKey(Event,on_delete=models.CASCADE, related_name ="event_user_attending")
@@ -102,3 +104,28 @@ class EventUser(models.Model):
     @property
     def time(self):
         return self.event.time
+
+class JourneyType(Enum):
+    POINT = 'POINT'
+    ROUTE = 'ROUTE'
+    
+class JourneyPoint(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name= "event_journey_point")
+    type = JourneyType.POINT.value
+    title = models.CharField(max_length= 100, blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
+    def __str__(self):
+        return self.title
+
+class JourneyRoute(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_journey_route")
+    type = JourneyType.ROUTE.value
+    title = models.CharField(max_length= 100, blank=True)
+    start_location = models.CharField(max_length= 100, blank=True)
+    end_location = models.CharField(max_length= 100, blank=True)
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
+    def __str__(self):
+        return self.title

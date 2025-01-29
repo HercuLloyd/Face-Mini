@@ -23,5 +23,9 @@ urlpatterns = [
     path('memories-list/<event>/', views.MemoriesList.as_view(), name='memories_list'),
     path('memories-post/', views.MemoriesPostView.as_view(), name='memories-post'),
     path('memories-post/delete/<pk>/', views.DeleteMemoriesPost.as_view(), name='delete_memories_post'),
-    path('memories-post/update/<pk>/', views.UpdateMemoriesPost.as_view(), name='update_memories_post')
+    path('memories-post/update/<pk>/', views.UpdateMemoriesPost.as_view(), name='update_memories_post'),
+
+    path('journey/point/create/', views.CreateJourneyPoint.as_view(), name='create_journey_point'),
+    path('journey/list/<event>/', views.JourneyList.as_view(), name='journey_list'),
+    path('journey/delete/<pk>/', views.DeleteJourneyPoint.as_view(), name='delete_journey_point'),
 ]

@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from rest_framework import generics, status
-from .serializers import EventSerializer, EventPostSerializer, MemoriesSerializer, EventUserSerializer
+from .serializers import (EventSerializer, EventPostSerializer, MemoriesSerializer,
+    EventUserSerializer, JourneyPointSerializer, JourneyRouteSerializer)
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Event, EventPost, EventMemories, EventUser
+from .models import Event, EventPost, EventMemories, EventUser, JourneyPoint, JourneyRoute
 from user.models import Profile
 from rest_framework.views import APIView
 from django.http import HttpResponse
@@ -151,3 +152,29 @@ def eventUserList(request, event):
 class UpdateEventUser(generics.UpdateAPIView):
     queryset = EventUser.objects.all()
     serializer_class = EventUserSerializer
+
+# Journey
+class CreateJourneyPoint(APIView):
+    permission_classes = [AllowAny]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, format=None):
+        serializer = JourneyPointSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return HttpResponse(serializer.data, status= status.HTTP_200_OK)
+        else:
+            return HttpResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class JourneyList(generics.ListCreateAPIView):
+    serializer_class = JourneyPointSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        event = self.kwargs['event']
+        return JourneyPoint.objects.filter(event = event)
+    
+class DeleteJourneyPoint(generics.DestroyAPIView):
+    queryset = JourneyPoint.objects.all()
+    serializer_class = JourneyPointSerializer

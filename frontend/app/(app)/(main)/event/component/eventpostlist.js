@@ -1,15 +1,11 @@
 "use client";
 import PostListContainer from "@/app/util/components/containers/postlistcontainer";
 import EventPost from "./eventpost";
-import api from "@/app/util/api";
-import { useRouter } from "next/navigation";
 import { useState, useEffect, useContext } from "react";
-import MessageInput from "./messageinput";
+
 import { EventDataContext } from "../[id]/page";
 
 export default function EventPostList({ id }) {
-  const [posts, setPosts] = useState([]);
-
   const eventData = useContext(EventDataContext);
 
   function date(value) {
