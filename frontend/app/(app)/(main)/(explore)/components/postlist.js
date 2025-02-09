@@ -26,7 +26,6 @@ export default function PostList() {
     ));
     return list.reverse();
   };
-  console.log(exploreData.eventList);
   return (
     <div className="">
       <PostListContainer>{exploreList()}</PostListContainer>

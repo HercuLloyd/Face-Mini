@@ -16,7 +16,6 @@ export default function EventFooter({ eventId }) {
       .get(`/event/event-user/list/${eventId}/`)
       .then((res) => res.data)
       .then((data) => {
-        console.log(data.length);
         setAttendanceCounter(data.length);
       });
   };

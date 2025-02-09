@@ -31,7 +31,23 @@ export default function EventPostList({ id }) {
   ));
   return (
     <div className="pb-[72px]">
-      <PostListContainer>{eventPostList}</PostListContainer>
+      <PostListContainer>
+        {eventData.eventPostList.length !== 0 ? (
+          eventPostList
+        ) : (
+          <EmptyEventPostList />
+        )}
+      </PostListContainer>
+    </div>
+  );
+}
+
+function EmptyEventPostList() {
+  return (
+    <div className="flex h-screen flex-col items-center justify-center pb-20">
+      <p className="w-60 text-center text-2xl font-semibold">
+        Be the first to share!
+      </p>
     </div>
   );
 }

@@ -26,7 +26,6 @@ export default function ProfileList() {
     const time = new Date(value);
     return f.format(time);
   }
-  //console.log(memoriesData);
 
   const loadMems = async () => {
     if (profileId !== undefined)

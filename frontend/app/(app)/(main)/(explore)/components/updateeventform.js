@@ -12,6 +12,7 @@ import { ExploreDataContext } from "../page";
 import { ProfileContext } from "@/app/context/AuthContext";
 
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import { storeISO } from "@/app/util/time";
 
 export default function UpdateEventForm({ onClose, eventId }) {
   const exploreData = useContext(ExploreDataContext);
@@ -22,6 +23,7 @@ export default function UpdateEventForm({ onClose, eventId }) {
 
   useEffect(() => {
     getEvent();
+    console.log(eventData.time);
   }, []);
 
   const handleChange = (e) => {
@@ -69,7 +71,7 @@ export default function UpdateEventForm({ onClose, eventId }) {
             formData.append("host", profileData.id);
             formData.append("event_title", values.event_title);
             formData.append("location", values.location);
-            formData.append("time", values.time);
+            formData.append("time", storeISO(values.time));
             formData.append("event_description", values.event_description);
             if (postImage != "") formData.append("image", postImage);
 

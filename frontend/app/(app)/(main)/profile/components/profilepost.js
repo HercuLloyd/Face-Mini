@@ -54,19 +54,19 @@ export default function ProfilePost({
   return (
     <div className="flex w-full flex-col gap-1 pt-4 sm:w-96">
       <div className="flex items-center justify-between bg-[#EEFDEE] p-2">
-        <button>
-          <div className="flex items-center gap-2" onClick={() => {}}>
+        <div>
+          <div className="flex items-center gap-2">
             <img
               src={profilePic}
               className="h-12 w-12 rounded-sm bg-slate-400 object-cover"
             ></img>
-            <div className="flex flex-col text-start text-sm font-medium leading-tight">
+            <div className="hover: flex cursor-default flex-col text-start text-sm font-medium leading-tight">
               <h1>{username}</h1>
               <h1>{location}</h1>
               <h1>{time}</h1>
             </div>
           </div>
-        </button>
+        </div>
         <div className="relative">
           <button
             className={`ml-2 flex items-center justify-center rounded-[3px] bg-green-400 p-2 text-3xl ${profilePageData.profileData.id == profileData.id ? "" : "hidden"}`}
@@ -108,11 +108,6 @@ export default function ProfilePost({
           }}
         ></button>
       </div>
-      {/* <DeleteProfileEventModal
-        open={deleteModal}
-        onClose={() => setDeleteModal(false)}
-        deletePost={() => deletePost()}
-      /> */}
     </div>
   );
 }

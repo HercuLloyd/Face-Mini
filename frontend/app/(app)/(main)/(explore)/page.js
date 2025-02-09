@@ -50,7 +50,6 @@ export default function Home() {
         .then((res) => res.data)
         .then((data) => {
           setUpcomingEvents(data);
-          console.log(data);
         });
   };
 

@@ -44,7 +44,7 @@ export default function CreateAndSaveButton({
   };
 
   //check if you event already saved
-  const savedEventCheck = async () => {
+  const checkIfSaved = async () => {
     if (yourProfileData.id != undefined && saveButton == false) {
       let list;
       await api
@@ -62,9 +62,12 @@ export default function CreateAndSaveButton({
     }
   };
 
-  const createAndSaveButton = () => {
-    savedEventCheck();
-    if (eventDate() > currentDate || eventDate().getTime() === 0)
+  const ONE_DAY = 24 * 60 * 60 * 1000;
+  function CreateMemoriesButton() {
+    if (
+      eventDate().getTime() + ONE_DAY > currentDate.getTime() ||
+      eventDate().getTime() === 0
+    )
       return (
         <button
           className={`rounded-md bg-green-600 px-2 py-2 text-white disabled:bg-slate-400`}
@@ -74,18 +77,31 @@ export default function CreateAndSaveButton({
           Create
         </button>
       );
-    return (
-      <button
-        className={`rounded-md bg-green-600 px-4 py-2 text-white disabled:bg-slate-400`}
-        onClick={() => {
-          saveEvent();
-          setSaveButton(true);
-        }}
-        disabled={currentTab == "chat" || saveButton}
-      >
-        {saveButton ? "Saved" : "Save"}
-      </button>
-    );
-  };
-  return <div>{createAndSaveButton()}</div>;
+  }
+  function SaveButton() {
+    checkIfSaved();
+    console.log(eventDate().getTime());
+    if (
+      eventDate().getTime() < currentDate.getTime() &&
+      eventDate().getTime() !== 0
+    )
+      return (
+        <button
+          className={`rounded-md bg-green-600 px-4 py-2 text-white disabled:bg-slate-400`}
+          onClick={() => {
+            saveEvent();
+            setSaveButton(true);
+          }}
+          disabled={currentTab == "chat" || saveButton}
+        >
+          {saveButton ? "Saved" : "Save"}
+        </button>
+      );
+  }
+  return (
+    <div className="flex gap-2">
+      <CreateMemoriesButton />
+      <SaveButton />
+    </div>
+  );
 }

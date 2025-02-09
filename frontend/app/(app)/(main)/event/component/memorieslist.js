@@ -3,32 +3,11 @@ import EventPost from "./eventpost";
 import { useState, useEffect, useContext } from "react";
 import api from "@/app/util/api";
 import { EventDataContext } from "../[id]/page";
+import { longDateTimeFormat } from "@/app/util/time";
 
 export default function MemoriesList({ eventId }) {
   const eventData = useContext(EventDataContext);
 
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    getPosts();
-  }, []);
-  const getPosts = () => {
-    api
-      .get(`/event/memories-list/${eventId}/`)
-      .then((res) => res.data)
-      .then((data) => {
-        setPosts(data);
-      });
-  };
-
-  function date(value) {
-    const f = new Intl.DateTimeFormat("en-us", {
-      dateStyle: "full",
-      timeStyle: "short",
-    });
-    const time = new Date(value);
-    return f.format(time);
-  }
   const memoriesList = eventData.memoriesList.map((post, key) => (
     <EventPost
       key={key}
@@ -36,7 +15,7 @@ export default function MemoriesList({ eventId }) {
       eventPostId={post.id}
       userProfile={post.user}
       username={post.display_name}
-      created_at={date(post.created_at)}
+      created_at={longDateTimeFormat(post.created_at)}
       text={post.message}
       image={post.image}
     />
@@ -44,7 +23,23 @@ export default function MemoriesList({ eventId }) {
 
   return (
     <div>
-      <PostListContainer>{memoriesList}</PostListContainer>
+      <PostListContainer>
+        {eventData.memoriesList.length !== 0 ? (
+          memoriesList
+        ) : (
+          <EmptyMemoriesList />
+        )}
+      </PostListContainer>
+    </div>
+  );
+}
+
+function EmptyMemoriesList() {
+  return (
+    <div className="flex h-screen flex-col items-center justify-center pb-20">
+      <p className="w-60 text-center text-2xl font-semibold">
+        Be the first to share!
+      </p>
     </div>
   );
 }

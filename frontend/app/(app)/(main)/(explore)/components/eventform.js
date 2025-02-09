@@ -8,6 +8,7 @@ import { ExploreDataContext } from "../page";
 import { ProfileContext } from "@/app/context/AuthContext";
 import { BASE_URL } from "@/app/util/constants";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import { storeISO } from "@/app/util/time";
 
 export default function EventForm({ onClose }) {
   const exploreData = useContext(ExploreDataContext);
@@ -54,7 +55,7 @@ export default function EventForm({ onClose }) {
             formData.append("host", profileData.id);
             formData.append("event_title", values.event_title);
             formData.append("location", values.location);
-            formData.append("time", values.time);
+            formData.append("time", storeISO(values.time));
             formData.append("event_description", values.event_description);
             formData.append("image", postImage);
 
@@ -67,6 +68,7 @@ export default function EventForm({ onClose }) {
           } catch (error) {
             alert(error);
           }
+          console.log(values.time === "");
           exploreData.getEventList();
         }}
       >

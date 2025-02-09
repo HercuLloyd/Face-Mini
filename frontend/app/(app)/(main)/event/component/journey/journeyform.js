@@ -11,6 +11,7 @@ import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 
 import { JourneyPageEnum, JourneyType } from "./journey";
 import { EventDataContext } from "../../[id]/page";
+import { storeISO } from "@/app/util/time";
 
 export default function JourneyForm({ eventId, changePage }) {
   const eventData = useContext(EventDataContext);
@@ -49,16 +50,11 @@ export default function JourneyForm({ eventId, changePage }) {
             formData.append("type", JourneyType.POINT);
             formData.append("title", values.title);
             formData.append("location", values.location);
-            formData.append("start_date", values.start_date);
-            formData.append("end_date", values.end_date);
-
-            console.log(eventId);
+            formData.append("start_date", storeISO(values.start_date));
+            formData.append("end_date", storeISO(values.end_date));
 
             await axios
               .post(URL, formData, config)
-              .then((res) => {
-                console.log(res.data);
-              })
               .catch((err) => console.log(err));
           } catch (error) {
             alert(error);

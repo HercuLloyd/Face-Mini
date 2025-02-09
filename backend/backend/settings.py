@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-vgnb$031d+&k^hz75x5i#xnbg)0*w17u&k*n55u##h6$%5czu5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'facemini.life', '10.0.0.182']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'facemini.life',]
 
 
 # Application definition
@@ -144,7 +144,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,

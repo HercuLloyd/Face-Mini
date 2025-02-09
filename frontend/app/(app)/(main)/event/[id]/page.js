@@ -56,7 +56,6 @@ export default function Event({ params }) {
       .then((res) => res.data)
       .then((data) => {
         setAttendance(data);
-        console.log(data);
       });
   };
 
@@ -66,7 +65,6 @@ export default function Event({ params }) {
       .then((res) => res.data)
       .then((data) => {
         setJourney(data);
-        console.log(data);
       });
   };
 
